@@ -24,6 +24,16 @@ class CmiCheckpoint < ActiveRecord::Base
                                     :conditions => ['project_id = ?', copy_from_project],
                                     :order => 'checkpoint_date DESC'
       super((previous.nil? ? {} : previous.attributes).merge(:checkpoint_date => Date.today))
+
+
+      # Copy previous checkpoint efforts
+      efforts = previous.cmi_checkpoint_efforts
+      efforts.each do |eff|
+        eff.id = nil
+        eff.created_at = Date.today
+        eff.updated_at = Date.today
+      end
+      self.cmi_checkpoint_efforts = efforts
     else
       super
     end
