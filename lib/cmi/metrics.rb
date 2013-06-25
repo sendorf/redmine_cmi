@@ -103,7 +103,12 @@ module CMI
     end
 
     def time_deviation_percent
-      100.0 * (time_scheduled - time_original) / time_original
+      if  time_original.zero?
+        0.0
+      else
+        100.0 * (time_scheduled - time_original) / time_original
+      end
+
     end
 
     def hhrr_cost_incurred
@@ -215,7 +220,11 @@ module CMI
     end
 
     def total_cost_deviation_percent
-      100.0 * total_cost_deviation / total_cost_original
+      if total_cost_original.zero?
+        0.0
+      else
+        100.0 * total_cost_deviation / total_cost_original
+      end
     end
 
     def original_margin
