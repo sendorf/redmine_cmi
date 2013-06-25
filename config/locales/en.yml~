@@ -16,6 +16,8 @@ en:
   field_incurred: Incurred
   field_group: Group
   field_guarantee: Months of Guarantee
+ 
+  guarante_placeholder_text: Between 0 and 24
 
   permission_cmi_management: View general management panel
   permission_cmi_view_metrics: View project metrics

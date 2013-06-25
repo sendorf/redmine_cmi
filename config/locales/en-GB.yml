@@ -15,6 +15,7 @@ en-GB:
   field_current_budget: Current budget
   field_incurred: Incurred
   field_group: Group
+  field_guarantee: Months of Guarantee
 
   permission_cmi_management: View general management panel
   permission_cmi_view_metrics: View project metrics
@@ -159,3 +160,11 @@ en-GB:
 
     plugin_name: Central Panel of Management
     plugin_description: Global and per project summarized views
+
+  activerecord:
+    errors:
+      models:
+        cmi_project_info:
+           attributes:
+             guarantee:
+               not_in_range: 'must be between 0 and 24'

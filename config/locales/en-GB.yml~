@@ -1,5 +1,5 @@
-# American english strings go here
-en:
+# British english strings go here
+en-GB:
   project_module_cmiplugin: Metrics
 
   field_actual_start_date: Actual start date
@@ -16,6 +16,8 @@ en:
   field_incurred: Incurred
   field_group: Group
   field_guarantee: Months of Guarantee
+
+  guarante_placeholder_text: Between 0 and 24
 
   permission_cmi_management: View general management panel
   permission_cmi_view_metrics: View project metrics
@@ -42,7 +44,7 @@ en:
     label_expenditures: Expenditures
     label_new_checkpoint: New checkpoint
     label_new_expenditure: New expenditure
-    label_view_all: View all checkpoints
+    label_view_all: View all the checkpoints
     button_enlarge: Enlarge
 
     label_initial_schedule: Initial schedule
@@ -145,7 +147,7 @@ en:
     cmi_change_tracker_not_available: There is not 'change' tracker available
     cmi_risk_tracker_not_available: There is not 'risk' tracker available
     cmi_incidence_tracker_not_available: There is not 'incidence' tracker available
-    cmi_no_reports: There are no checkpoints
+    cmi_no_reports: There are no checkpoints created
 
     caption_status: Status
     caption_groups: Groups
@@ -156,7 +158,7 @@ en:
     no_actual_start_date: "No actual start date in basic info. Cannot make calculations."
     error_other: "There is needed data missing in the project '%{project}' to make calculations. An error has happened: %{message}."
     error_profile: "There are users (%{users}) without profile in the project '%{project}'. It's necessary to be able to make calculations."
-    cmi_no_reports_found: "There are no checkpoints in the project '%{project}'. Create one so you can view the metrics."
+    cmi_no_reports_found: "There are no reports in the project '%{project}'. Create one so you can view the metrics."
 
     plugin_name: Central Panel of Management
     plugin_description: Global and per project summarized views

@@ -17,6 +17,8 @@ es:
   field_group: Grupo
   field_guarantee: Meses de Garantía
 
+  guarante_placeholder_text: Entre 0 y 24
+
   permission_cmi_management: Ver cuadro de mando general
   permission_cmi_view_metrics: Ver métricas del proyecto
   permission_cmi_project_info: Configurar información base para métricas

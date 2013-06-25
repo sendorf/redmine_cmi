@@ -13,7 +13,7 @@
 
     <div class="splitcontentright">
       <p><%= f.select :group, options_for_select(Project.groups, @cmi_project_info.group), :include_blank => true %></p>
-      <p><%= f.text_field :guarantee, :size => 10, :required => true, :placeholder => "0 - 24" %></p>
+      <p><%= f.text_field :guarantee, :size => 10, :required => true, :placeholder => :guarante_placeholder_text %></p>
     </div>
     <div style="clear:both;"></div>
   </fieldset>

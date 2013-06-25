@@ -14,8 +14,8 @@ class CmiProjectInfo < ActiveRecord::Base
 
   validates_numericality_of :scheduled_qa_meetings, :only_integer => true
   validates_numericality_of :total_income
-  validates_numericality_of :guarantee, :only_integer => true
-  validates_inclusion_of :guarantee, :in => (0..24), :message => :not_in_range
+validates_numericality_of :guarantee, :only_integer => true
+validates_inclusion_of :guarantee, :in => (0..24), :message => :not_in_range
   validate :role_efforts
 
   def scheduled_role_effort(role)

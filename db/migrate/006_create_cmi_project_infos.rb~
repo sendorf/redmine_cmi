@@ -8,7 +8,6 @@ class CreateCmiProjectInfos < ActiveRecord::Migration
       t.date :scheduled_finish_date, :null => false
       t.integer :scheduled_qa_meetings, :null => false
       t.text :scheduled_role_effort
-      t.integer :guarantee, :null => false
       t.timestamps
     end
 
