@@ -1,4 +1,4 @@
-<% labelled_tabular_form_for :checkpoint, @checkpoint,
+<%= labelled_form_for :checkpoint, @checkpoint,
                              :url => {:action => 'update', :id => @checkpoint},
                              :html => {:id => 'checkpoint-form',
                                        :class => nil,
@@ -19,12 +19,13 @@
 
     <%#= f.hidden_field :lock_version %>
     <%= submit_tag l(:button_submit) %>
-    <%= link_to_remote l(:label_preview),
+    <%= link_to l(:label_preview),
                        { :url => {:action => 'preview', :id => @checkpoint, :project_id => @project},
                          :update => 'preview',
                          :with => 'Form.serialize("checkpoint-form")',
                          :complete => "Element.scrollTo('preview')"
-                       }, :accesskey => accesskey(:preview) %>
+                       }, :accesskey => accesskey(:preview),
+                       :remote => true %>
 <% end %>
 
 <div id="preview" class="wiki"></div>
