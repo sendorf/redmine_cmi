@@ -1,5 +1,6 @@
 require_dependency 'project'
-require 'dispatcher'
+#require 'dispatcher'
+require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 module CMI
   module ProjectPatch
@@ -41,7 +42,13 @@ module CMI
     end
   end
 end
-
-Dispatcher.to_prepare do
-  Project.send(:include, CMI::ProjectPatch)
+if Rails::VERSION::MAJOR >= 3
+  ActionDispatch::Callbacks.to_prepare do
+    # use require_dependency if you plan to utilize development mode
+    Project.send(:include, CMI::ProjectPatch)
+  end
+else
+  Dispatcher.to_prepare do
+    Project.send(:include, CMI::ProjectPatch)
+  end
 end
