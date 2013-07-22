@@ -1,6 +1,6 @@
 <%= error_messages_for 'cmi_project_info' %>
 
-<% labelled_form_for :cmi_project_info, @cmi_project_info,
+<%= labelled_form_for :cmi_project_info, @cmi_project_info,
                    :url => { :controller => 'metrics', :action => 'info', :project_id => @project },
                    :lang => current_language do |f| %>
 
@@ -38,7 +38,7 @@
           <%- columns[i].each do |role| -%>
             <p>
               <%= label_tag "cmi_project_info_scheduled_role_effort_#{role}",
-                  l(:"cmi.label_scheduled_role_effort", :role => role) + '<span class="required"> *</span>' %>
+                  l(:"cmi.label_scheduled_role_effort", :role => role).html_safe + ' <span class="required"> *</span>'.html_safe %>
               <%= hidden_field_tag "cmi_project_info[cmi_project_efforts_attributes][][id]", @cmi_project_info.scheduled_role_effort_id(role) %>
               <%= hidden_field_tag "cmi_project_info[cmi_project_efforts_attributes][][role]", role %>
               <%# TODO scheduled_effort value when validations fail %>

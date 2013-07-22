@@ -2,7 +2,7 @@
   <th rowspan=4><%= l('cmi.label_deviation') %></th>
    <th rowspan="1" colspan="2">% <%= l('cmi.label_effort') %></th>
    <% @metrics.each_with_index do |metric, i| -%>
-     <% content_tag :td, :id => "deviation_effort_#{i}", :class => "issue" do -%>
+     <%= content_tag :td, :id => "deviation_effort_#{i}", :class => "issue" do -%>
        <%= percent metric.effort_deviation_percent %>
      <% end -%>
    <% end -%>
@@ -10,7 +10,7 @@
 <tr>
   <th rowspan=1 colspan="2">% <%= l('cmi.label_time') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "deviation_time_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "deviation_time_#{i}", :class => "issue" do -%>
       <%= percent metric.time_deviation_percent %>
     <% end -%>
   <% end -%>
@@ -18,7 +18,7 @@
 <tr>
   <th rowspan=1 colspan="2">% <%= l('cmi.label_cost') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "deviation_cost_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "deviation_cost_#{i}", :class => "issue" do -%>
       <%= percent metric.total_cost_deviation_percent %>
     <% end -%>
    <% end -%>
@@ -26,7 +26,7 @@
 <tr>
   <th colspan="2"><%= l('cmi.label_graphs') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "deviation_chart_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "deviation_chart_#{i}", :class => "issue" do -%>
       <img src="http://chart.apis.google.com/chart?cht=bhs&chd=t:<%= 50 + metric.effort_deviation_percent.round(2) * 25/50 %>,<%= 50 + metric.time_deviation_percent.round(2) * 25/50 %>,<%= 50 + metric.total_cost_deviation_percent.round(2) * 25/50 %>|100,100,100&chp=.5&&chxr=0,-100,100&chm=h,000000,0,0.5,0.5&chco=4D89F9,C6D9FD&chbh=10,5,10&chs=250x70&chxt=x,y&chxl=0:|-100|-50|0|50|100|1:|<%=l :'cmi.label_cost' %>: <%= percent metric.total_cost_deviation_percent %>|<%=l :'cmi.label_time' %>: <%= percent metric.time_deviation_percent %>|<%=l :'cmi.label_effort' %>: <%= percent metric.effort_deviation_percent %>|"/>
     <% end -%>
   <% end -%>

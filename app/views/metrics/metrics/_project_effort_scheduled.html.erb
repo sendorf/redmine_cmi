@@ -4,7 +4,7 @@
   <% @roles.each do |role| %>
     <td><%=h role %></td>
     <% @metrics.each_with_index do |metric, i| -%>
-      <% content_tag :td, :id => "effort_planned_#{role}_#{i}", :class => "issue" do -%>
+      <%= content_tag :td, :id => "effort_planned_#{role}_#{i}", :class => "issue" do -%>
         <%= hours (begin metric.effort_scheduled_by_role(role) rescue '--' end) %>
       <% end -%>
     <% end -%>
@@ -14,9 +14,9 @@
 
   <td><%= l(:label_total) %></td>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "effort_planned_total_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "effort_planned_total_#{i}", :class => "issue" do -%>
       <%= hours (begin metric.effort_scheduled rescue '--' end) %>
-      <%= effort_scheduled_graph(@metrics[i], @roles) %>
+      <%= effort_scheduled_graph(@metrics[i], @roles).html_safe %>
     <% end -%>
   <% end -%>
 </tr>
