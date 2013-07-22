@@ -18,6 +18,10 @@ class CmiCheckpoint < ActiveRecord::Base
   attr_reader :current_journal
   after_save :create_journal
 
+  def attachments
+    []
+  end
+
   def initialize(copy_from_project=nil)
     if copy_from_project.is_a? Project
       previous = CmiCheckpoint.find :first,
@@ -110,9 +114,11 @@ class CmiCheckpoint < ActiveRecord::Base
                                                       :value => scheduled_role_effort_hash)
       end
       # custom fields changes
+
       @current_journal.save
       # reset current journal
       init_journal @current_journal.user, @current_journal.notes
     end
   end
+
 end
