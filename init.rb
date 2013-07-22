@@ -3,6 +3,8 @@ Dir["#{File.dirname(__FILE__)}/config/initializers/**/*.rb"].sort.each do |initi
   Kernel.load(initializer)
 end
 
+
+
 require 'redmine'
 require 'cmi/scoreboard_menu_helper_patch'
 require 'cmi/time_entry_patch'
