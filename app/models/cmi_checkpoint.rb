@@ -25,7 +25,8 @@ class CmiCheckpoint < ActiveRecord::Base
                                     :order => 'checkpoint_date DESC'
       super((previous.nil? ? {} : previous.attributes).merge(:checkpoint_date => Date.today))
 
-
+#logger.info "////////////////////////////////////////////"
+#logger.info Project.find(:first, ['project_id = ?', :project_id]).cmi_project_info.cmi_project_efforts.inspect
       # If there were a previous checkpoint
       if previous != nil
         # Copy previous checkpoint efforts

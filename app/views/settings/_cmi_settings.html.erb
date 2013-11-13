@@ -25,7 +25,30 @@
           '<option></option>' +
             options_from_collection_for_select(Tracker.all, :id, :name, @settings['qa_tracker'].to_i) %>
     </p>
+    <p>
+      <label><%=l :'cmi.label_bpo' %></label>
+      <%= select_tag 'settings[bpo_tracker]',
+          '<option></option>' +
+            options_from_collection_for_select(Tracker.all, :id, :name, @settings['bpo_tracker'].to_i) %>
+    </p>
+    
   </fieldset>
+<p>
+      
+      <label><%=l :'cmi.label_bpo_custom_fields' %></label>
+      <%
+        if Setting.plugin_redmine_cmi['bpo_tracker'].present? 
+          options = '<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['bpo_tracker']).custom_fields, :id, :name, @settings['bpo_tracker_custom_field'].to_i)
+        else
+          options = '<option></option>'
+        end
+      %>
+      <%= select_tag 'settings[bpo_tracker_custom_field]', options %>
+    </p>
+<%=    
+        observe_field 'settings_bpo_tracker', :update => 'settings_bpo_tracker_custom_field', :with => "'tracker='+document.getElementById(\'settings_bpo_tracker\').value", :url => {:controller => 'settings', :action => 'show_tracker_custom_fields'}  
+      %>
+
   <p>
     <label><%=l :'cmi.caption_groups' %></label>
     <%= text_area_tag 'settings[groups]', @settings['groups'], :rows => 15 %><br />

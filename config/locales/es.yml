@@ -82,6 +82,8 @@ es:
     label_cost: Coste
     label_HHRR: RRHH
     label_others: Otros
+    label_bpo: BPO
+    label_bpo_custom_fields: Campo de coste BPO por año
     label_advance: Avance
     label_effort_plural: Esfuerzos
     label_budgets: Presupuestos
