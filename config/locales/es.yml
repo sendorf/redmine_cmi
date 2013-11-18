@@ -15,6 +15,7 @@ es:
   field_current_budget: Presupuesto actual
   field_incurred: Gasto incurrido
   field_group: Grupo
+  field_guarantee: Meses de Garantía
 
   permission_cmi_management: Ver cuadro de mando general
   permission_cmi_view_metrics: Ver métricas del proyecto
@@ -81,6 +82,8 @@ es:
     label_cost: Coste
     label_HHRR: RRHH
     label_others: Otros
+    label_bpo: BPO
+    label_bpo_custom_fields: Campo de coste BPO por año
     label_advance: Avance
     label_effort_plural: Esfuerzos
     label_budgets: Presupuestos
@@ -164,4 +167,9 @@ es:
   activerecord:
     errors:
       messages:
-        not_a_date: no es una fecha válida
+        not_a_date: no es una fecha válida  
+      models:
+        cmi_project_info:
+           attributes:
+             guarantee:
+               not_in_range: 'debe estar comprendido entre 0 y 24'

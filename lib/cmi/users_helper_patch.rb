@@ -1,5 +1,4 @@
 require_dependency 'users_helper'
-#require 'dispatcher'
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 # Patches Redmine's ApplicationController dinamically. Redefines methods wich

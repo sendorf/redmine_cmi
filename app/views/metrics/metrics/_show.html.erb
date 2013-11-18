@@ -26,6 +26,7 @@
       <%= render :partial => 'metrics/metrics/project_advance' %>
       <%= render :partial => 'metrics/metrics/project_profitability' %>
       <%= render :partial => 'metrics/metrics/project_deviation' %>
+
       <% unless Setting.plugin_redmine_cmi['risks_tracker'].blank? %>
         <%= render :partial => 'metrics/metrics/project_risk' %>
       <% end %>

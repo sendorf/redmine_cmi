@@ -32,7 +32,7 @@ class MetricsController < ApplicationController
     unless @cmi_project_info
       @cmi_project_info = CmiProjectInfo.new :project_id => @project.id
     end
-    if request.put?
+    if request.put? || request.post?
       @cmi_project_info.attributes = params[:cmi_project_info]
       flash[:notice] = l(:notice_successful_update) if @cmi_project_info.save
     end

@@ -29,15 +29,16 @@ class CmiCheckpoint < ActiveRecord::Base
                                     :order => 'checkpoint_date DESC'
       super((previous.nil? ? {} : previous.attributes).merge(:checkpoint_date => Date.today))
 
-
-      # Copy previous checkpoint efforts
-      efforts = previous.cmi_checkpoint_efforts
-      efforts.each do |eff|
-        eff.id = nil
-        eff.created_at = Date.today
-        eff.updated_at = Date.today
+      if previous.present?
+        # Copy previous checkpoint efforts
+        efforts = previous.cmi_checkpoint_efforts
+        efforts.each do |eff|
+          eff.id = nil
+          eff.created_at = Date.today
+          eff.updated_at = Date.today
+        end
+        self.cmi_checkpoint_efforts = efforts
       end
-      self.cmi_checkpoint_efforts = efforts
     else
       super
     end
@@ -114,11 +115,9 @@ class CmiCheckpoint < ActiveRecord::Base
                                                       :value => scheduled_role_effort_hash)
       end
       # custom fields changes
-
       @current_journal.save
       # reset current journal
       init_journal @current_journal.user, @current_journal.notes
     end
   end
-
 end

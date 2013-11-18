@@ -1,5 +1,4 @@
 require_dependency 'time_entry'
-#require 'dispatcher'
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 # Patches Redmine's TimeEntry dinamically. Adds callbacks to save the role and

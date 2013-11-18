@@ -15,6 +15,7 @@ en:
   field_current_budget: Current budget
   field_incurred: Incurred
   field_group: Group
+  field_guarantee: Months of Guarantee
 
   permission_cmi_management: View general management panel
   permission_cmi_view_metrics: View project metrics
@@ -81,6 +82,8 @@ en:
     label_cost: Cost
     label_HHRR: HHRR
     label_others: Others
+    label_bpo: BPO
+    label_bpo_custom_fields: BPO yearly cost field
     label_advance: Advance
     label_effort_plural: Efforts
     label_budgets: Budgets
@@ -159,3 +162,11 @@ en:
 
     plugin_name: Central Panel of Management
     plugin_description: Global and per project summarized views
+
+  activerecord:
+    errors:
+      models:
+        cmi_project_info:
+           attributes:
+             guarantee:
+               not_in_range: 'must be between 0 and 24'

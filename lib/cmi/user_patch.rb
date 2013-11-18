@@ -1,4 +1,3 @@
-#require 'dispatcher'
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 # Patches Redmine's Issue dynamically.  Adds relationships
@@ -51,6 +50,7 @@ module CMI
     end
   end
 end
+
 if Rails::VERSION::MAJOR >= 3
   ActionDispatch::Callbacks.to_prepare do
     # use require_dependency if you plan to utilize development mode

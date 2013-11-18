@@ -1,6 +1,5 @@
 require_dependency 'time_entry_reports_controller' if File.exists?("#{Rails.root}/app/controllers/time_entry_reports_controller.rb")
 require_dependency 'timelog_controller' if File.exists?("#{Rails.root}/app/controllers/timelog_controller.rb")
-#require 'dispatcher'
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 # Patches Redmine's TimeEntryReportsController dinamically. Adds an option "Role" to the list of available criterias

@@ -41,4 +41,5 @@ RedmineApp::Application.routes.draw do
 #  map.metrics '/projects/:project_id/metrics/:action', :controller => 'metrics'
 #  map.management '/management/:action', :controller => 'management'
 #  map.cost_history '/admin/cost_history', :controller => 'admin', :action => 'cost_history'
+  match '/settings/show_tracker_custom_fields' => 'settings#show_tracker_custom_fields'
 end

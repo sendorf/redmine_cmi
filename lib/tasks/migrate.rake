@@ -11,6 +11,7 @@ namespace :cmi do
     project_scheduled_finish_date_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["scheduled_finish_date"])
     project_scheduled_qa_meetings_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["scheduled_qa_meetings"])
     project_total_income_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["total_income"])
+    project_guarantee_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["guarantee"])
     project_actual_start_date_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["actual_start_date"])
     project_scheduled_role_effort_fields = User.roles.reduce({}) { |ac, role|
       ac.merge!({ role => ProjectCustomField.find_by_name(conf["project_custom_fields"]["scheduled_role_effort"].gsub('{{role}}', role)) })

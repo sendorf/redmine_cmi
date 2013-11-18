@@ -103,7 +103,12 @@ module CMI
     end
 
     def time_deviation_percent
-      100.0 * (time_scheduled - time_original) / time_original
+      if  time_original.zero?
+        0.0
+      else
+        100.0 * (time_scheduled - time_original) / time_original
+      end
+
     end
 
     def hhrr_cost_incurred
@@ -186,12 +191,69 @@ module CMI
       project.cmi_expenditures.sum(:initial_budget)
     end
 
+    def bpo_cost_incurred
+      bpo_cost_scheduled - bpo_cost_remaining
+    end
+
+    def bpo_cost_scheduled
+      bpo_tracker_id = Setting.plugin_redmine_cmi['bpo_tracker']
+      coste_anyo_id = Setting.plugin_redmine_cmi['bpo_tracker_custom_field']
+      cost = 0
+
+      if bpo_tracker_id.present? && coste_anyo_id.present?
+        project.issues.each do |issue|
+          if issue.tracker.id == bpo_tracker_id.to_i && issue.due_date.present? && issue.start_date.present?
+            year_cost = CustomValue.find(:first, :conditions => ['custom_field_id = ? AND customized_id = ?', coste_anyo_id, issue.id]).value.to_i
+            cost += ((issue.due_date - issue.start_date + 1) / 365) * year_cost
+           end  
+        end
+      end
+
+      cost
+    end
+
+    def bpo_cost_remaining
+      bpo_tracker_id = Setting.plugin_redmine_cmi['bpo_tracker']
+      coste_anyo_id = Setting.plugin_redmine_cmi['bpo_tracker_custom_field']
+      cost = 0
+
+      if bpo_tracker_id.present? && coste_anyo_id.present?
+        project.issues.each do |issue|
+          if issue.tracker.id == bpo_tracker_id.to_i && issue.due_date.present? && issue.start_date.present? && issue.start_date <= date && issue.due_date >= date
+            year_cost = CustomValue.find(:first, :conditions => ['custom_field_id = ? AND customized_id = ?', coste_anyo_id, issue.id]).value.to_i
+            cost += ((issue.due_date - date + 1) / 365) * year_cost
+          elsif issue.tracker.id == bpo_tracker_id.to_i && issue.due_date.present? && issue.start_date.present? && issue.start_date > date && issue.due_date >= date
+            year_cost = CustomValue.find(:first, :conditions => ['custom_field_id = ? AND customized_id = ?', coste_anyo_id, issue.id]).value.to_i
+            cost += ((issue.due_date - issue.start_date + 1) / 365) * year_cost
+          end  
+        end
+      end
+
+      cost
+    end
+
+    def bpo_cost_percent_incurred
+      if bpo_cost_scheduled.zero?
+        0.0
+      else
+        100.0 * bpo_cost_incurred / bpo_cost_scheduled
+      end
+    end
+
+    def bpo_cost_percent
+      if total_cost_scheduled.zero?
+        0.0
+      else
+        100.0 * bpo_cost_scheduled / total_cost_scheduled
+      end
+    end
+
     def total_cost_incurred
-      hhrr_cost_incurred + material_cost_incurred
+      hhrr_cost_incurred + material_cost_incurred + bpo_cost_incurred
     end
 
     def total_cost_scheduled
-      hhrr_cost_scheduled + material_cost_scheduled
+      hhrr_cost_scheduled + material_cost_scheduled + bpo_cost_scheduled
     end
 
     def total_cost_remaining
@@ -215,7 +277,11 @@ module CMI
     end
 
     def total_cost_deviation_percent
-      100.0 * total_cost_deviation / total_cost_original
+      if total_cost_original.zero?
+        0.0
+      else
+        100.0 * total_cost_deviation / total_cost_original
+      end
     end
 
     def original_margin

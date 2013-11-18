@@ -3,8 +3,6 @@ Dir["#{File.dirname(__FILE__)}/config/initializers/**/*.rb"].sort.each do |initi
   Kernel.load(initializer)
 end
 
-
-
 require 'redmine'
 require 'cmi/scoreboard_menu_helper_patch'
 require 'cmi/time_entry_patch'
@@ -13,6 +11,8 @@ require 'cmi/user_patch'
 require 'cmi/users_helper_patch'
 require 'cmi/project_patch'
 require 'cmi/journal_observer_patch'
+require 'cmi/issue_bpo_dates_required_patch'
+require 'cmi/settings_controller_patch'
 
 Redmine::Plugin.register :redmine_cmi do
   Rails.configuration.after_initialize do

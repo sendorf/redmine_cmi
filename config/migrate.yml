@@ -6,6 +6,7 @@ project_custom_fields:
   scheduled_role_effort: Esfuerzo previsto {{role}}
   total_income: Cantidad aceptada
   actual_start_date: Fecha real de comienzo
+  guarantee: Garantia
 
 reports:
   tracker: Informes

@@ -1,5 +1,4 @@
 require_dependency 'project'
-#require 'dispatcher'
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 module CMI

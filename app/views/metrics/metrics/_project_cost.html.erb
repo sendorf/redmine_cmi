@@ -1,6 +1,6 @@
 <tr>
-  <th rowspan=10><%= l('cmi.label_cost') %></th>
-  <th rowspan="3"><%= l('cmi.label_done') %></th>
+  <th rowspan=13><%= l('cmi.label_cost') %></th>
+  <th rowspan="4"><%= l('cmi.label_done') %></th>
   <td><%= l('cmi.label_HHRR') %></td>
   <% @metrics.each_with_index do |metric, i| -%>
     <%= content_tag :td, :id => "cost_hhrr_spent_#{i}", :class => "issue" do -%>
@@ -17,6 +17,14 @@
   <% end -%>
 </tr>
 <tr>
+  <td><%= l('cmi.label_bpo') %></td>
+  <% @metrics.each_with_index do |metric, i| -%>
+    <%= content_tag :td, :id => "cost_bpo_spent_#{i}", :class => "issue" do -%>
+      <%= currency metric.bpo_cost_incurred %>
+    <% end -%>
+  <% end -%>
+</tr>
+<tr>
   <td><%= l(:label_total) %></td>
   <% @metrics.each_with_index do |metric, i| -%>
     <%= content_tag :td, :id => "cost_total_spent_#{i}", :class => "issue" do -%>
@@ -25,7 +33,7 @@
   <% end -%>
 </tr>
 <tr>
-  <th rowspan=3><%= l('cmi.label_remaining') %></th>
+  <th rowspan=4><%= l('cmi.label_remaining') %></th>
   <td><%= l('cmi.label_HHRR') %></td>
   <% @metrics.each_with_index do |metric, i| -%>
     <%= content_tag :td, :id => "cost_hhrr_remaining_#{i}", :class => "issue" do -%>
@@ -42,6 +50,14 @@
   <% end -%>
 </tr>
 <tr>
+  <td><%= l('cmi.label_bpo') %></td>
+  <% @metrics.each_with_index do |metric, i| -%>
+    <%= content_tag :td, :id => "cost_bpo_remaining_#{i}", :class => "issue" do -%>
+      <%= currency metric.bpo_cost_remaining %>
+    <% end -%>
+  <% end -%>
+</tr>
+<tr>
    <td><%= l(:label_total) %></td>
    <% @metrics.each_with_index do |metric, i| -%>
      <%= content_tag :td, :id => "cost_total_remaining_#{i}", :class => "issue" do -%>
@@ -51,7 +67,7 @@
 </tr>
 
 <tr>
-  <th rowspan=3><%= l('cmi.label_planned') %></th>
+  <th rowspan=4><%= l('cmi.label_planned') %></th>
   <td><%= l('cmi.label_HHRR') %></td>
   <% @metrics.each_with_index do |metric, i| -%>
     <%= content_tag :td, :id => "cost_hhrr_planned_#{i}", :class => "issue" do -%>
@@ -64,6 +80,14 @@
    <% @metrics.each_with_index do |metric, i| -%>
      <%= content_tag :td, :id => "cost_other_planned_#{i}", :class => "issue" do -%>
        <%= currency metric.material_cost_scheduled %>
+     <% end -%>
+   <% end -%>
+</tr>
+<tr>
+   <td><%= l('cmi.label_bpo') %></td>
+   <% @metrics.each_with_index do |metric, i| -%>
+     <%= content_tag :td, :id => "cost_bpo_planned_#{i}", :class => "issue" do -%>
+       <%= currency metric.bpo_cost_scheduled %>
      <% end -%>
    <% end -%>
 </tr>
