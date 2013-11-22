@@ -269,7 +269,7 @@ module CMI
     end
 
     def total_cost_original
-      hhrr_cost_original + material_cost_original
+      hhrr_cost_original + material_cost_original + bpo_cost_scheduled
     end
 
     def total_cost_deviation
