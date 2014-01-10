@@ -3,7 +3,7 @@
   <th rowspan=2><%= l('cmi.label_changes') %></th>
   <th colspan="2"><%= l('cmi.label_accepted') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "changes_accepted_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "changes_accepted_#{i}", :class => "issue" do -%>
       <%= metric.changes_accepted %>
     <% end -%>
   <% end -%>
@@ -11,7 +11,7 @@
 <tr>
    <th colspan="2"><%= l('cmi.label_rejected') %></th>
    <% @metrics.each_with_index do |metric, i| -%>
-     <% content_tag :td, :id => "changes_rejected_#{i}", :class => "issue" do -%>
+     <%= content_tag :td, :id => "changes_rejected_#{i}", :class => "issue" do -%>
        <%= metric.changes_rejected %>
      <% end -%>
    <% end -%>
@@ -19,7 +19,7 @@
 <tr>
   <th rowspan=1 colspan="3"><%= l('cmi.label_effort_done') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "changes_effort_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "changes_effort_#{i}", :class => "issue" do -%>
       <%= hours metric.changes_effort_incurred %> (<%= percent metric.changes_effort_percent %>)
     <% end -%>
   <% end -%>

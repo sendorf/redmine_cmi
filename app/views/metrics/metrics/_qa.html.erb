@@ -3,7 +3,7 @@
   <th rowspan=1><%= l('cmi.label_quality_reviews') %></th>
   <th rowspan=1 colspan="2"><%= l('cmi.label_quality_reviews_done') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "qa_meets_done_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "qa_meets_done_#{i}", :class => "issue" do -%>
       <%= metric.held_qa_meetings %> (<%= percent metric.held_qa_meetings_percent %>)
     <% end -%>
   <% end -%>
@@ -12,7 +12,7 @@
   <th rowspan=2><%= l('cmi.label_nonconformities') %></th>
    <th colspan="2"><%= l('cmi.label_quality_reviews_detected') %></th>
    <% @metrics.each_with_index do |metric, i| -%>
-     <% content_tag :td, :id => "qa_nc_detected_#{i}", :class => "issue" do -%>
+     <%= content_tag :td, :id => "qa_nc_detected_#{i}", :class => "issue" do -%>
        <%= metric.nc_total %>
      <% end -%>
    <% end -%>
@@ -20,7 +20,7 @@
 <tr>
    <th colspan="2"><%= l('cmi.label_unresolved') %></th>
    <% @metrics.each_with_index do |metric, i| -%>
-     <% content_tag :td, :id => "qa_nc_pending_#{i}", :class => "issue" do -%>
+     <%= content_tag :td, :id => "qa_nc_pending_#{i}", :class => "issue" do -%>
        <%= metric.nc_pending %>
      <% end -%>
    <% end -%>
@@ -28,7 +28,7 @@
 <tr>
   <th rowspan=1 colspan="3"><%= l('cmi.label_no_approval_open_out_of_date') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "qa_pending_corrective_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "qa_pending_corrective_#{i}", :class => "issue" do -%>
       <%= metric.nc_out_of_date %>
     <% end -%>
   <% end -%>
@@ -36,7 +36,7 @@
 <tr>
   <th rowspan=1 colspan="3"><%= l('cmi.label_no_approval_open_without_date') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "qa_no_date_corrective_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "qa_no_date_corrective_#{i}", :class => "issue" do -%>
       <%= metric.nc_no_date %>
     <% end -%>
   <% end -%>
@@ -44,7 +44,7 @@
 <tr>
   <th rowspan=1 colspan="3"><%= l('cmi.label_ac_effort') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "qa_effort_corrective_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "qa_effort_corrective_#{i}", :class => "issue" do -%>
       <%= metric.qa_effort_incurred.round(2) %> (<%= percent metric.qa_effort_percent %>)
     <% end -%>
   <% end -%>

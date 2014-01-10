@@ -2,7 +2,7 @@
   <th rowspan=4><%= l('cmi.label_time') %></th>
     <th rowspan="1" colspan="2"><%= l('cmi.label_done') %></th>
     <% @metrics.each_with_index do |metric, i| -%>
-      <% content_tag :td, :id => "time_done_#{i}", :class => "issue" do -%>
+      <%= content_tag :td, :id => "time_done_#{i}", :class => "issue" do -%>
         <%=t 'datetime.distance_in_words.x_days', :count => metric.time_done %>
       <% end -%>
    <% end -%>
@@ -10,7 +10,7 @@
 <tr>
   <th rowspan=1 colspan="2"><%= l('cmi.label_remaining') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "time_remaining_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "time_remaining_#{i}", :class => "issue" do -%>
       <%=t 'datetime.distance_in_words.x_days', :count => metric.time_remaining %>
     <% end -%>
   <% end -%>
@@ -18,7 +18,7 @@
 <tr>
   <th rowspan=1 colspan="2"><%= l('cmi.label_planned') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "time_planned_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "time_planned_#{i}", :class => "issue" do -%>
       <%=t 'datetime.distance_in_words.x_days', :count => metric.time_scheduled %>
     <% end -%>
   <% end -%>
@@ -26,7 +26,7 @@
 <tr>
   <th colspan="2"><%= l('cmi.label_graphs') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "time_chart_#{i}" do -%>
+    <%= content_tag :td, :id => "time_chart_#{i}" do -%>
       <img src="http://chart.apis.google.com/chart?cht=bhs&chd=t:<%= metric.time_percent_done.round(2) %>|100&chco=4D89F9,C6D9FD&chbh=10,5,10&chs=250x50&chxt=x,y&chxl=0:|0|50|100|1:|<%= percent metric.time_percent_done %>|"/>
     <% end -%>
   <% end -%>

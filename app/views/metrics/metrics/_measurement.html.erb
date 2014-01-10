@@ -2,7 +2,7 @@
   <th rowspan=2><%= l('cmi.label_measurement_and_metrics') %></th>
   <th rowspan=1 colspan="3"><%= l('cmi.label_effort_annual_review') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "metrics_anual_revision_effort_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "metrics_anual_revision_effort_#{i}", :class => "issue" do -%>
       <%# TODO %>--
     <% end -%>
   <% end -%>
@@ -10,7 +10,7 @@
 <tr>
   <th rowspan=1 colspan="3"><%= l('cmi.label_effort_reporting') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "metrics_report_effort_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "metrics_report_effort_#{i}", :class => "issue" do -%>
       <%# TODO %>--
     <% end -%>
   <% end -%>

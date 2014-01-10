@@ -17,7 +17,7 @@
   <p class="author">
     <%= authoring @checkpoint.created_at, @checkpoint.author %>.
     <% if @checkpoint.created_at != @checkpoint.updated_at %>
-      <%= l(:label_updated_time, time_tag(@checkpoint.updated_at)) %>.
+      <%= l(:label_updated_time, time_tag(@checkpoint.updated_at)).html_safe %>.
     <% end %>
   </p>
   <table class="attributes">
@@ -40,7 +40,7 @@
   <% if @checkpoint.description? -%>
     <hr />
     <div class="contextual">
-      <%= link_to_remote_if_authorized(l(:button_quote), { :url => {:action => 'new_journal', :id => @checkpoint} }, :class => 'icon icon-comment') %>
+      <%= link_to_if_authorized(l(:button_quote), { :url => {:action => 'new_journal', :id => @checkpoint} }, :class => 'icon icon-comment', :remote => true) %>
     </div>
 
     <p><strong><%=l(:field_description)%></strong></p>

@@ -1,4 +1,4 @@
-require 'dispatcher'
+require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 # Patches Redmine's Issue dynamically.  Adds relationships
 # Issue +has_one+ to Incident and ImprovementAction
@@ -25,7 +25,15 @@ module CMI
   end
 end
 
-Dispatcher.to_prepare do
-  require_dependency 'settings_controller'
-  SettingsController.send(:include, CMI::SettingsControllerPatch)
+if Rails::VERSION::MAJOR >= 3
+  ActionDispatch::Callbacks.to_prepare do
+    # use require_dependency if you plan to utilize development mode
+    require_dependency 'settings_controller'
+    SettingsController.send(:include, CMI::SettingsControllerPatch)
+  end
+else
+  Dispatcher.to_prepare do
+    require_dependency 'settings_controller'
+    SettingsController.send(:include, CMI::SettingsControllerPatch)
+  end
 end

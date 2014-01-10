@@ -1,5 +1,5 @@
 require_dependency 'users_helper'
-require 'dispatcher'
+require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 # Patches Redmine's ApplicationController dinamically. Redefines methods wich
 # send error responses to clients
@@ -34,6 +34,12 @@ module CMI
   end
 end
 
-Dispatcher.to_prepare do
-  UsersHelper.send(:include, CMI::UsersHelperPatch)
+if Rails::VERSION::MAJOR >= 3
+  ActionDispatch::Callbacks.to_prepare do
+    UsersHelper.send(:include, CMI::UsersHelperPatch)
+  end
+else
+  Dispatcher.to_prepare do
+    UsersHelper.send(:include, CMI::UsersHelperPatch)
+  end
 end

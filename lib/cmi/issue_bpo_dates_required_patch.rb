@@ -1,4 +1,4 @@
-require 'dispatcher'
+require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 module CMI
   module IssueBpoDatesRequiredPatch
@@ -31,6 +31,13 @@ module CMI
   end
 end
 
-Dispatcher.to_prepare do
-  Issue.send(:include, CMI::IssueBpoDatesRequiredPatch)
+if Rails::VERSION::MAJOR >= 3
+  ActionDispatch::Callbacks.to_prepare do
+    # use require_dependency if you plan to utilize development mode
+    Issue.send(:include, CMI::IssueBpoDatesRequiredPatch)
+  end
+else
+  Dispatcher.to_prepare do
+    Issue.send(:include, CMI::IssueBpoDatesRequiredPatch)
+  end
 end

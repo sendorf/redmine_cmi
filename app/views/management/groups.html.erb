@@ -63,16 +63,16 @@ end.to_f.round(2) %></strong></td>
    <table border="1">
      <tr>
        <td>
-         <%= accepted_graph(@metrics) %>
+         <%= accepted_graph(@metrics).html_safe %>
        </td>
        <td>
-          <%= profit_graph(@metrics) %>
+          <%= profit_graph(@metrics).html_safe %>
        </td>
        <td>
-          <%= deviation_graph(@metrics) %>
+          <%= deviation_graph(@metrics).html_safe %>
        </td>
        <td>
-          <%= cm_graph(@metrics) %>
+          <%= cm_graph(@metrics).html_safe %>
        </td>
      </tr>
      <tr>
