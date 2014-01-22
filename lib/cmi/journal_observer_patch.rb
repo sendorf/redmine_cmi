@@ -1,5 +1,5 @@
 require_dependency 'journal_observer'
-require 'dispatcher'
+require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 module CMI
   module JournalObserverPatch
@@ -28,6 +28,12 @@ module CMI
   end
 end
 
-Dispatcher.to_prepare do
-  JournalObserver.send(:include, CMI::JournalObserverPatch)
+if Rails::VERSION::MAJOR >= 3
+  ActionDispatch::Callbacks.to_prepare do
+    JournalObserver.send(:include, CMI::JournalObserverPatch)
+  end
+else
+  Dispatcher.to_prepare do
+    JournalObserver.send(:include, CMI::JournalObserverPatch)
+  end
 end

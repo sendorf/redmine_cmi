@@ -1,4 +1,4 @@
-require 'dispatcher'
+require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 # Patches Redmine's Issue dynamically.  Adds relationships
 # Issue +has_one+ to Incident and ImprovementAction
@@ -51,8 +51,17 @@ module CMI
   end
 end
 
-Dispatcher.to_prepare do
-  require_dependency 'principal'
-  require_dependency 'user'
-  User.send(:include, CMI::UserPatch)
+if Rails::VERSION::MAJOR >= 3
+  ActionDispatch::Callbacks.to_prepare do
+    # use require_dependency if you plan to utilize development mode
+    require_dependency 'principal'
+    require_dependency 'user'
+    User.send(:include, CMI::UserPatch)
+  end
+else
+  Dispatcher.to_prepare do
+    require_dependency 'principal'
+    require_dependency 'user'
+    User.send(:include, CMI::UserPatch)
+  end
 end

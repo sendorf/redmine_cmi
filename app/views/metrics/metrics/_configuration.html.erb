@@ -2,7 +2,7 @@
   <th rowspan=2><%= l('cmi.label_configuration_management') %></th>
   <th rowspan=1 colspan="3"><%= l('cmi.label_effort_done') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "config_effort_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "config_effort_#{i}", :class => "issue" do -%>
       <%= hours metric.conf_effort_incurred %> (<%= percent metric.conf_effort_percent %>)
     <% end -%>
   <% end -%>
@@ -10,7 +10,7 @@
 <tr>
   <th rowspan=1 colspan="3"><%= l('cmi.label_baseline_changes') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <% content_tag :td, :id => "config_changes_#{i}", :class => "issue" do -%>
+    <%= content_tag :td, :id => "config_changes_#{i}", :class => "issue" do -%>
       <%# TODO %>
     <% end -%>
   <% end -%>

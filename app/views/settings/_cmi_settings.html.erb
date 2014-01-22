@@ -4,50 +4,54 @@
     <p>
       <label><%=l :'cmi.label_incidents' %></label>
       <%= select_tag 'settings[incidents_tracker]',
-          '<option></option>' +
-            options_from_collection_for_select(Tracker.all, :id, :name, @settings['incidents_tracker'].to_i) %>
+          ('<option></option>' +
+            options_from_collection_for_select(Tracker.all, :id, :name, @settings['incidents_tracker'].to_i)).html_safe %>
     </p>
     <p>
       <label><%=l :'cmi.label_risks' %></label>
       <%= select_tag 'settings[risks_tracker]',
-          '<option></option>' +
-            options_from_collection_for_select(Tracker.all, :id, :name, @settings['risks_tracker'].to_i) %>
+          ('<option></option>' +
+            options_from_collection_for_select(Tracker.all, :id, :name, @settings['risks_tracker'].to_i)).html_safe %>
     </p>
     <p>
       <label><%=l :'cmi.label_change_request' %></label>
       <%= select_tag 'settings[changes_tracker]',
-          '<option></option>' +
-            options_from_collection_for_select(Tracker.all, :id, :name, @settings['changes_tracker'].to_i) %>
+          ('<option></option>' +
+            options_from_collection_for_select(Tracker.all, :id, :name, @settings['changes_tracker'].to_i)).html_safe %>
     </p>
     <p>
       <label><%=l :'cmi.label_nonconformities' %></label>
       <%= select_tag 'settings[qa_tracker]',
-          '<option></option>' +
-            options_from_collection_for_select(Tracker.all, :id, :name, @settings['qa_tracker'].to_i) %>
+          ('<option></option>' +
+            options_from_collection_for_select(Tracker.all, :id, :name, @settings['qa_tracker'].to_i)).html_safe %>
     </p>
     <p>
       <label><%=l :'cmi.label_bpo' %></label>
       <%= select_tag 'settings[bpo_tracker]',
-          '<option></option>' +
-            options_from_collection_for_select(Tracker.all, :id, :name, @settings['bpo_tracker'].to_i) %>
+          ('<option></option>' +
+            options_from_collection_for_select(Tracker.all, :id, :name, @settings['bpo_tracker'].to_i)).html_safe %>
     </p>
     
   </fieldset>
-<p>
-      
-      <label><%=l :'cmi.label_bpo_custom_fields' %></label>
-      <%
-        if Setting.plugin_redmine_cmi['bpo_tracker'].present? 
-          options = '<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['bpo_tracker']).custom_fields, :id, :name, @settings['bpo_tracker_custom_field'].to_i)
-        else
-          options = '<option></option>'
-        end
-      %>
-      <%= select_tag 'settings[bpo_tracker_custom_field]', options %>
-    </p>
-<%=    
-        observe_field 'settings_bpo_tracker', :update => 'settings_bpo_tracker_custom_field', :with => "'tracker='+document.getElementById(\'settings_bpo_tracker\').value", :url => {:controller => 'settings', :action => 'show_tracker_custom_fields'}  
-      %>
+
+  <p>
+    <label><%=l :'cmi.label_bpo_custom_fields' %></label>
+    <%
+      if Setting.plugin_redmine_cmi['bpo_tracker'].present? 
+        options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['bpo_tracker']).custom_fields, :id, :name, @settings['bpo_tracker_custom_field'].to_i)).html_safe
+      else
+        options = ('<option></option>').html_safe
+      end
+    %>
+    <%= select_tag 'settings[bpo_tracker_custom_field]', options %>
+  </p>
+
+  <!-- observe_field replacement for Redmine 2.3-->
+  <script>
+    $('#settings_bpo_tracker').change(function(){
+	  $('#settings_bpo_tracker_custom_field').load('/settings/show_tracker_custom_fields', {tracker: $('#settings_bpo_tracker').val()});
+    });
+  </script>
 
   <p>
     <label><%=l :'cmi.caption_groups' %></label>
@@ -61,8 +65,8 @@
   <p>
     <label><%=l :'cmi.label_coordinator_role' %></label>
     <%= select_tag 'settings[coordinator_role]',
-        '<option></option>' +
-          options_from_collection_for_select(User.roles, :to_s, :to_s, @settings['coordinator_role']) %>
+        ('<option></option>' +
+          options_from_collection_for_select(User.roles, :to_s, :to_s, @settings['coordinator_role'])).html_safe %>
   </p>
 </div>
 <div class="splitcontentright">

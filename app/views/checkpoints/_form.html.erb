@@ -16,7 +16,7 @@
       <%- columns[i].each do |role| -%>
         <p>
           <%= label_tag "checkpoint_scheduled_role_effort_#{role}",
-                        l(:"cmi.label_scheduled_role_effort", :role => role) + '<span class="required"> *</span>' %>
+                        l(:"cmi.label_scheduled_role_effort", :role => role).html_safe + '<span class="required"> *</span>'.html_safe %>
           <%= hidden_field_tag "checkpoint[cmi_checkpoint_efforts_attributes][][id]", @checkpoint.scheduled_role_effort_id(role) %>
           <%= hidden_field_tag "checkpoint[cmi_checkpoint_efforts_attributes][][role]", role %>
           <%= text_field_tag "checkpoint[cmi_checkpoint_efforts_attributes][][scheduled_effort]", @checkpoint.scheduled_role_effort(role), :size => 10 %>

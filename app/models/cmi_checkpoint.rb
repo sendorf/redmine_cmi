@@ -18,6 +18,10 @@ class CmiCheckpoint < ActiveRecord::Base
   attr_reader :current_journal
   after_save :create_journal
 
+  def attachments
+    []
+  end
+
   def initialize(copy_from_project=nil)
     if copy_from_project.is_a? Project
       previous = CmiCheckpoint.find :first,
@@ -25,13 +29,10 @@ class CmiCheckpoint < ActiveRecord::Base
                                     :order => 'checkpoint_date DESC'
       super((previous.nil? ? {} : previous.attributes).merge(:checkpoint_date => Date.today))
 
-#logger.info "////////////////////////////////////////////"
-#logger.info Project.find(:first, ['project_id = ?', :project_id]).cmi_project_info.cmi_project_efforts.inspect
-      # If there were a previous checkpoint
-      if previous != nil
+      if previous.present?
         # Copy previous checkpoint efforts
-      	efforts = previous.cmi_checkpoint_efforts
-	efforts.each do |eff|
+        efforts = previous.cmi_checkpoint_efforts
+        efforts.each do |eff|
           eff.id = nil
           eff.created_at = Date.today
           eff.updated_at = Date.today
