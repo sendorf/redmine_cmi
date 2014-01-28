@@ -17,7 +17,7 @@
   <p class="author">
     <%= authoring @expenditure.created_at, @expenditure.author %>.
     <% if @expenditure.created_at != @expenditure.updated_at %>
-      <%= l(:label_updated_time, time_tag(@expenditure.updated_at)) %>.
+      <%= l(:label_updated_time, time_tag(@expenditure.updated_at)).html_safe %>.
     <% end %>
   </p>
   <table class="attributes">

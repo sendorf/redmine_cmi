@@ -20,6 +20,11 @@ class CmiExpenditure < ActiveRecord::Base
     @current_journal
   end
 
+  # Necessary to act as "journalized"
+  def attachments
+    []
+  end
+
   private
 
   # Saves the changes in a Journal

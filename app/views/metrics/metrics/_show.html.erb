@@ -1,6 +1,6 @@
 <% unless flash[:error] %>
 
-  <% form_for(metrics_path(:action => 'show', :project_id => @project), :method => :post) do |f| %>
+  <%= form_for(metrics_path(:action => 'show', :project_id => @project), :method => :post) do |f| %>
       <%= hidden_field_tag :metrics, 'all' %>
       <p class="other-formats"><%= submit_tag l('cmi.label_view_all') %></p>
   <% end %>
