@@ -7,7 +7,6 @@ es:
   field_scheduled_qa_meetings: Revisiones de calidad planificadas
   field_held_qa_meetings: Revisiones de calidad realizadas
   field_scheduled_start_date: Fecha de comienzo planificada
-  field_total_income: Cantidad aceptada
   field_checkpoint_date: Fecha de control
   field_scheduled_role_effort: Esfuerzo previsto
   field_concept: Concepto
@@ -27,21 +26,12 @@ es:
   permission_cmi_edit_own_checkpoint_notes: Editar notas propias de puntos de control
   permission_cmi_view_checkpoints: Ver puntos de control
   permission_cmi_delete_checkpoints: Borrar puntos de control
-  permission_cmi_add_expenditures: Añadir gastos
-  permission_cmi_edit_expenditures: Editar gastos
-  permission_cmi_add_expenditure_notes: Añadir notas a gastos
-  permission_cmi_edit_expenditure_notes: Editar notas de gastos
-  permission_cmi_edit_own_expenditure_notes: Editar notas propias de gastos
-  permission_cmi_view_expenditures: Ver gastos
-  permission_cmi_delete_expenditures: Borrar gastos
 
   cmi:
     label_metrics: Métricas
     label_info: Información base
     label_checkpoints: Puntos de control
-    label_expenditures: Gastos
     label_new_checkpoint: Nuevo punto de control
-    label_new_expenditure: Nuevo gasto
     label_view_all: Ver todos los puntos de control
     button_enlarge: Ampliar
 
@@ -58,6 +48,8 @@ es:
     label_observations_cmi: Observaciones
     label_stages_cmi: Ciclo de vida
     label_archived: Archivados
+
+    label_income: 'Ingresos: '
 
     label_area: Área de proceso
     label_metric: Métrica
@@ -140,6 +132,12 @@ es:
     label_high: Alto
     label_medium: Medio
     label_low: Bajo
+    label_bills: Facturas
+    label_providers: Proveedores
+    label_bill_amount_custom_fields: Cantidad ingresada por factura
+    label_providers_custom_fields: Cantidad gastada por proveedor
+    label_bills_paid_statuses: Estados de factura pagada
+    label_providers_paid_statuses: Estados de proveedor pagado
 
     cmi_module_not_enabled: No está habilitado el módulo 'Métricas'
     cmi_expense_tracker_not_available: No existe el tracker gastos

@@ -121,8 +121,6 @@ module CmiHelper
                     params[:controller] == 'metrics' and params[:action] == 'info'
                   when 'checkpoints'
                     params[:controller] == 'checkpoints'
-                  when 'expenditures'
-                    params[:controller] == 'expenditures'
                   end
   end
 end
