@@ -162,7 +162,7 @@ module CMI
     def material_cost_incurred
       providers_tracker_id = Setting.plugin_redmine_cmi['providers_tracker']
       invoice_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
-      paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses'].collect(&:to_i)
+      paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses']
       result = 0
    
       if providers_tracker_id.present? && invoice_id.present? && paid_statuses.present?
