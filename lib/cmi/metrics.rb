@@ -164,12 +164,15 @@ module CMI
       invoice_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
       paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses'].collect(&:to_i)
       result = 0
-      
-      providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
+   
+      if providers_tracker_id.present? && invoice_id.present? && paid_statuses.present?
+        paid_statuses.collect(&:to_i)   
+        providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
 
-      providers.each do |provider|
-        if provider.status_id.in?(paid_statuses)
-          result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider).value.to_f
+        providers.each do |provider|
+          if provider.status_id.in?(paid_statuses)
+            result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider).value.to_f
+          end
         end
       end
 
@@ -181,10 +184,12 @@ module CMI
       invoice_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
       result = 0
       
-      providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
+      if providers_tracker_id.present? && invoice_id.present?
+        providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
 
-      providers.each do |provider|
-        result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider).value.to_f
+        providers.each do |provider|
+          result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider).value.to_f
+        end
       end
 
       result
