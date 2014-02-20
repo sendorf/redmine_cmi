@@ -177,12 +177,6 @@
         :multiple => true %>
   </p>
   <p>
-    <label><%=l :'cmi.label_bills_paid_statuses' %></label>
-    <%= select_tag 'settings[bills_paid_statuses]',
-        options_from_collection_for_select(IssueStatus.all, :id, :name, (@settings['bills_paid_statuses'] || [])),
-        :multiple => true %>
-  </p>
-  <p>
     <label><%=l :'cmi.label_providers_paid_statuses' %></label>
     <%= select_tag 'settings[providers_paid_statuses]',
         options_from_collection_for_select(IssueStatus.all, :id, :name, (@settings['providers_paid_statuses'] || [])),
