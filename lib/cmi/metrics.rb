@@ -160,18 +160,38 @@ module CMI
     end
 
     def material_cost_incurred
+=begin      
       providers_tracker_id = Setting.plugin_redmine_cmi['providers_tracker']
       invoice_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
       paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses']
       result = 0
    
       if providers_tracker_id.present? && invoice_id.present? && paid_statuses.present?
-        paid_statuses.collect(&:to_i)   
+        paid_statuses = paid_statuses.collect(&:to_i)   
         providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
 
         providers.each do |provider|
           if provider.status_id.in?(paid_statuses)
-            result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider).value.to_f
+            result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider.id).value.to_f
+          end
+        end
+      end
+=end
+
+      providers_tracker_id = Setting.plugin_redmine_cmi['providers_tracker']
+      invoice_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
+      paid_date_id = Setting.plugin_redmine_cmi['providers_tracker_paid_date_custom_field']
+      paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses']
+      result = 0
+
+      if providers_tracker_id.present? && invoice_id.present? && paid_statuses.present? && paid_date_id.present?
+        paid_statuses = paid_statuses.collect(&:to_i)   
+        providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
+
+        providers.each do |provider|
+          paid_date = CustomValue.find_by_custom_field_id_and_customized_id(paid_date_id, provider.id)
+          if provider.status_id.in?(paid_statuses) && (paid_date.value <= date.to_s)
+            result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider.id).value.to_f
           end
         end
       end
@@ -188,7 +208,7 @@ module CMI
         providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
 
         providers.each do |provider|
-          result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider).value.to_f
+          result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider.id).value.to_f
         end
       end
 

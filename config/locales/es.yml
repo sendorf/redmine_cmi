@@ -75,7 +75,7 @@ es:
     label_HHRR: RRHH
     label_others: Otros
     label_bpo: BPO
-    label_bpo_custom_fields: Campo de coste BPO por año
+    label_bpo_amount_custom_field: Campo de coste BPO por año
     label_advance: Avance
     label_effort_plural: Esfuerzos
     label_budgets: Presupuestos
@@ -134,8 +134,9 @@ es:
     label_low: Bajo
     label_bills: Facturas
     label_providers: Proveedores
-    label_bill_amount_custom_fields: Cantidad ingresada por factura
-    label_providers_custom_fields: Cantidad gastada por proveedor
+    label_bill_amount_custom_field: Cantidad ingresada por factura
+    label_provider_amount_custom_field: Cantidad gastada por proveedor
+    label_provider_paid_date_custom_field: Fecha de pago del proveedor
     label_bills_paid_statuses: Estados de factura pagada
     label_providers_paid_statuses: Estados de proveedor pagado
 

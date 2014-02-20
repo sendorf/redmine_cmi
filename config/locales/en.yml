@@ -75,7 +75,7 @@ en:
     label_HHRR: HHRR
     label_others: Others
     label_bpo: BPO
-    label_bpo_custom_fields: BPO yearly cost field
+    label_bpo_amount_custom_field: BPO yearly cost field
     label_advance: Advance
     label_effort_plural: Efforts
     label_budgets: Budgets
@@ -134,8 +134,9 @@ en:
     label_low: Low
     label_bills: Bills
     label_providers: Providers
-    label_bill_amount_custom_fields: Amount income by bill
-    label_providers_custom_fields: Amount spend by provider
+    label_bill_amount_custom_field: Amount income by bill
+    label_provider_amount_custom_field: Amount spend by provider
+    label_provider_paid_date_custom_field: Provider payment day
     label_bills_paid_statuses: Status for paid bill
     label_providers_paid_statuses: Status for paid provider
 

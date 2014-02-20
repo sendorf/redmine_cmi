@@ -48,7 +48,7 @@
   <fieldset>
     <legend><%=l :label_custom_field_plural %></legend>
     <p>
-      <label><%=l :'cmi.label_bpo_custom_fields' %></label>
+      <label><%=l :'cmi.label_bpo_amount_custom_field' %></label>
       <%
         if Setting.plugin_redmine_cmi['bpo_tracker'].present? 
           options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['bpo_tracker']).custom_fields, :id, :name, @settings['bpo_tracker_custom_field'].to_i)).html_safe
@@ -66,7 +66,7 @@
     </p>
 
     <p>
-      <label><%=l :'cmi.label_bill_amount_custom_fields' %></label>
+      <label><%=l :'cmi.label_bill_amount_custom_field' %></label>
       <%
         if Setting.plugin_redmine_cmi['bill_tracker'].present? 
           options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['bill_tracker']).custom_fields, :id, :name, @settings['bill_amount_custom_field'].to_i)).html_safe
@@ -85,7 +85,7 @@
     </p>
 
     <p>
-      <label><%=l :'cmi.label_providers_custom_fields' %></label>
+      <label><%=l :'cmi.label_provider_amount_custom_field' %></label>
       <%
         if Setting.plugin_redmine_cmi['providers_tracker'].present? 
           options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['providers_tracker']).custom_fields, :id, :name, @settings['providers_tracker_custom_field'].to_i)).html_safe
@@ -99,6 +99,25 @@
       <script>
         $('#settings_providers_tracker').change(function(){
         $('#settings_providers_tracker_custom_field').load('/settings/show_tracker_custom_fields', {tracker: $('#settings_providers_tracker').val()});
+        });
+      </script>
+    </p>
+
+    <p>
+      <label><%=l :'cmi.label_provider_paid_date_custom_field' %></label>
+      <%
+        if Setting.plugin_redmine_cmi['providers_tracker'].present? 
+          options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['providers_tracker']).custom_fields, :id, :name, @settings['providers_tracker_paid_date_custom_field'].to_i)).html_safe
+        else
+          options = ('<option></option>').html_safe
+        end
+      %>
+      <%= select_tag 'settings[providers_tracker_paid_date_custom_field]', options %>
+
+      <!-- observe_field replacement for Redmine 2.3-->
+      <script>
+        $('#settings_providers_tracker').change(function(){
+        $('#settings_providers_tracker_paid_date_custom_field').load('/settings/show_tracker_custom_fields', {tracker: $('#settings_providers_tracker').val()});
         });
       </script>
     </p>
