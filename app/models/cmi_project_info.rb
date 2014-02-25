@@ -37,6 +37,24 @@ class CmiProjectInfo < ActiveRecord::Base
   end
   alias_method_chain :cmi_project_efforts_attributes=, :auto_delete
 
+  def total_income
+    factura_tracker_id = Setting.plugin_redmine_cmi['bill_tracker']
+    cantidad_facturada_id = Setting.plugin_redmine_cmi['bill_amount_custom_field']
+
+    amount = 0.0
+    
+    if factura_tracker_id.present? && cantidad_facturada_id.present?
+      facturas = Issue.find_all_by_project_id_and_tracker_id(project.id, factura_tracker_id)
+      amount = CustomValue.sum(:value, 
+                               :conditions => {:custom_field_id => cantidad_facturada_id, 
+                                               :customized_id => facturas.collect{|f| f.id}
+                                              }
+                              )
+    end
+
+    amount.to_f
+  end
+
   private
 
   # Role efforts validation

@@ -45,14 +45,6 @@ Redmine::Plugin.register :redmine_cmi do
     permission :cmi_edit_own_checkpoint_notes, { :checkpoints => [:preview, :edit_journal] }
     permission :cmi_view_checkpoints, { :checkpoints => [:index, :show] }
     permission :cmi_delete_checkpoints, { :checkpoints => :destroy }
-
-    permission :cmi_add_expenditures, { :expenditures => [:new, :create, :preview] }
-    permission :cmi_edit_expenditures, { :expenditures => [:edit, :update, :preview, :new_journal] }
-    permission :cmi_add_expenditure_notes, { :expenditures => [:edit, :update, :preview, :new_journal] }
-    permission :cmi_edit_expenditure_notes, { :expenditures => [:preview, :edit_journal] }
-    permission :cmi_edit_own_expenditure_notes, { :expenditures => [:preview, :edit_journal] }
-    permission :cmi_view_expenditures, { :expenditures => [:index, :show] }
-    permission :cmi_delete_expenditures, { :expenditures => :destroy }
   end
 
   menu :project_menu, :metrics, { :controller => 'metrics', :action => 'show' },

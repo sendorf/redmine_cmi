@@ -160,11 +160,41 @@ module CMI
     end
 
     def material_cost_incurred
-      project.cmi_expenditures.sum(:incurred)
+      providers_tracker_id = Setting.plugin_redmine_cmi['providers_tracker']
+      invoice_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
+      paid_date_id = Setting.plugin_redmine_cmi['providers_tracker_paid_date_custom_field']
+      paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses']
+      result = 0.0
+
+      if providers_tracker_id.present? && invoice_id.present? && paid_statuses.present? && paid_date_id.present?
+        paid_statuses = paid_statuses.collect(&:to_i)   
+        providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
+
+        providers.each do |provider|
+          paid_date = CustomValue.find_by_custom_field_id_and_customized_id(paid_date_id, provider.id)
+          if provider.status_id.in?(paid_statuses) && (paid_date.value <= date.to_s)
+            result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider.id).value.to_f
+          end
+        end
+      end
+
+      result
     end
 
     def material_cost_scheduled
-      project.cmi_expenditures.sum(:current_budget)
+      providers_tracker_id = Setting.plugin_redmine_cmi['providers_tracker']
+      invoice_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
+      result = 0.0
+      
+      if providers_tracker_id.present? && invoice_id.present?
+        providers = Issue.find_all_by_project_id_and_tracker_id(project.id, providers_tracker_id)
+
+        providers.each do |provider|
+          result += CustomValue.find_by_custom_field_id_and_customized_id(invoice_id, provider.id).value.to_f
+        end
+      end
+
+      result
     end
 
     def material_cost_remaining
@@ -188,7 +218,7 @@ module CMI
     end
 
     def material_cost_original
-      project.cmi_expenditures.sum(:initial_budget)
+      material_cost_scheduled
     end
 
     def bpo_cost_incurred
@@ -289,7 +319,12 @@ module CMI
     end
 
     def original_margin_percent
-      100.0 * original_margin / project.cmi_project_info.total_income
+      ti = project.cmi_project_info.total_income
+      if ti!=0
+        100.0 * original_margin / project.cmi_project_info.total_income
+      else
+        0.0
+      end
     end
 
     def scheduled_margin
@@ -297,7 +332,12 @@ module CMI
     end
 
     def scheduled_margin_percent
-      100.0 * scheduled_margin / project.cmi_project_info.total_income
+      ti = project.cmi_project_info.total_income
+      if ti!=0
+        100.0 * scheduled_margin / project.cmi_project_info.total_income
+      else
+        0.0
+      end
     end
 
     def incurred_margin
@@ -305,7 +345,12 @@ module CMI
     end
 
     def incurred_margin_percent
-      100.0 * incurred_margin / project.cmi_project_info.total_income
+      ti = project.cmi_project_info.total_income
+      if ti!=0
+        100.0 * incurred_margin / project.cmi_project_info.total_income
+      else
+        0.0
+      end
     end
 
     def risk_low

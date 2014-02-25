@@ -7,7 +7,6 @@ en:
   field_scheduled_qa_meetings: Scheduled QA meetings
   field_held_qa_meetings: Held QA meetings
   field_scheduled_start_date: Scheduled start date
-  field_total_income: Total income
   field_checkpoint_date: Checkpoint date
   field_scheduled_role_effort: Scheduled effort
   field_concept: Concept
@@ -27,21 +26,12 @@ en:
   permission_cmi_edit_own_checkpoint_notes: Edit own checkpoint notes
   permission_cmi_view_checkpoints: View checkpoints
   permission_cmi_delete_checkpoints: Delete checkpoints
-  permission_cmi_add_expenditures: Add expenditures
-  permission_cmi_edit_expenditures: Edit expenditures
-  permission_cmi_add_expenditure_notes: Add notes to expenditure
-  permission_cmi_edit_expenditure_notes: Edit expenditure notes
-  permission_cmi_edit_own_expenditure_notes: Edit own expenditure notes
-  permission_cmi_view_expenditures: View expenditures
-  permission_cmi_delete_expenditures: Delete expenditures
 
   cmi:
     label_metrics: Metrics
     label_info: Basic info
     label_checkpoints: Checkpoints
-    label_expenditures: Expenditures
     label_new_checkpoint: New checkpoint
-    label_new_expenditure: New expenditure
     label_view_all: View all checkpoints
     button_enlarge: Enlarge
 
@@ -58,6 +48,8 @@ en:
     label_observations_cmi: Observations
     label_stages_cmi: Product life cycle
     label_archived: Archived
+
+    label_income: 'Total income: '
 
     label_area: Area
     label_metric: Metrics
@@ -83,7 +75,7 @@ en:
     label_HHRR: HHRR
     label_others: Others
     label_bpo: BPO
-    label_bpo_custom_fields: BPO yearly cost field
+    label_bpo_amount_custom_field: BPO yearly cost field
     label_advance: Advance
     label_effort_plural: Efforts
     label_budgets: Budgets
@@ -140,6 +132,13 @@ en:
     label_high: High
     label_medium: Medium
     label_low: Low
+    label_bills: Bills
+    label_providers: Providers
+    label_bill_amount_custom_field: Amount income by bill
+    label_provider_amount_custom_field: Amount spend by provider
+    label_provider_paid_date_custom_field: Provider payment day
+    label_bills_paid_statuses: Status for paid bill
+    label_providers_paid_statuses: Status for paid provider
 
     cmi_module_not_enabled: The module 'Metrics' is not enabled
     cmi_expense_tracker_not_available: There is not 'expense' tracker available
