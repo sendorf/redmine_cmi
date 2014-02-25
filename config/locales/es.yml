@@ -83,6 +83,9 @@ es:
     label_profitability_planned: Prevista inicial
     label_profitability_current: Prevista actual
     label_current_profit: Beneficio actual
+    label_cashflow: Cashflow
+    label_cashflow_current: Valor
+    label_cashflow_percent: Porcentaje
     label_deviation: Desviaciones
     label_change_request: Solicitudes de cambio
     label_requirements: Requisitos

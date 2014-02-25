@@ -523,5 +523,40 @@ module CMI
         100.0 * qa_effort_incurred / effort_done
       end
     end
+
+    def total_income_incurred
+      bills_tracker_id = Setting.plugin_redmine_cmi['bill_tracker']
+      amount_field_id = Setting.plugin_redmine_cmi['bill_amount_custom_field']
+      paid_date_id = Setting.plugin_redmine_cmi['bill_tracker_paid_date_custom_field']
+#      paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses']
+      result = 0.0
+
+      if bills_tracker_id.present? && amount_field_id.present? && paid_date_id.present?
+#        paid_statuses = paid_statuses.collect(&:to_i)   
+        bills = Issue.find_all_by_project_id_and_tracker_id(project.id, bills_tracker_id)
+
+        bills.each do |bill|
+          paid_date = CustomValue.find_by_custom_field_id_and_customized_id(paid_date_id, bill.id)
+#          if provider.status_id.in?(paid_statuses) && (paid_date.value <= date.to_s)
+          if paid_date.value <= date.to_s
+            result += CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, bill.id).value.to_f
+          end
+        end
+      end
+
+      result
+    end
+
+    def cashflow_current
+      total_income_incurred - total_cost_incurred
+    end
+
+    def cashflow_percent
+      if total_income_incurred.zero?
+        0.0
+      else
+        100.0 * cashflow_current / total_income_incurred
+      end
+    end
   end
 end
