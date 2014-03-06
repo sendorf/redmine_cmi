@@ -537,7 +537,7 @@ module CMI
 
         bills.each do |bill|
           paid_date = CustomValue.find_by_custom_field_id_and_customized_id(paid_date_id, bill.id)
-#          if provider.status_id.in?(paid_statuses) && (paid_date.value <= date.to_s)
+
           if bill.status_id.in?(paid_statuses) && (paid_date.value <= date.to_s)
             result += CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, bill.id).value.to_f
           end
