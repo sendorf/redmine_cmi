@@ -83,6 +83,9 @@ en-GB:
     label_profitability_planned: Profitability planned
     label_profitability_current: Profitability current
     label_current_profit: Current profit
+    label_cashflow: Cashflow
+    label_cashflow_current: Value
+    label_cashflow_percent: Percent
     label_deviation: Deviation
     label_change_request: Change requests
     label_requirements: Requirements
@@ -135,9 +138,10 @@ en-GB:
     label_bills: Bills
     label_providers: Providers
     label_bill_amount_custom_field: Amount income by bill
+    label_bill_paid_date_custom_field: Bill payment day
     label_provider_amount_custom_field: Amount spend by provider
     label_provider_paid_date_custom_field: Provider payment day
-    label_bills_paid_statuses: Status for paid bill
+    label_bill_paid_statuses: Status for paid bill
     label_providers_paid_statuses: Status for paid provider
 
     cmi_module_not_enabled: The module 'Metrics' is not enabled

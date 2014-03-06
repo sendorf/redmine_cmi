@@ -85,6 +85,25 @@
     </p>
 
     <p>
+      <label><%=l :'cmi.label_bill_paid_date_custom_field' %></label>
+      <%
+        if Setting.plugin_redmine_cmi['bill_tracker'].present? 
+          options = ('<option></option>'+options_from_collection_for_select(Tracker.find(Setting.plugin_redmine_cmi['bill_tracker']).custom_fields, :id, :name, @settings['bill_tracker_paid_date_custom_field'].to_i)).html_safe
+        else
+          options = ('<option></option>').html_safe
+        end
+      %>
+      <%= select_tag 'settings[bill_tracker_paid_date_custom_field]', options %>
+
+      <!-- observe_field replacement for Redmine 2.3-->
+      <script>
+        $('#settings_bill_tracker').change(function(){
+        $('#settings_bill_tracker_paid_date_custom_field').load('/settings/show_tracker_custom_fields', {tracker: $('#settings_bill_tracker').val()});
+        });
+      </script>
+    </p>
+
+    <p>
       <label><%=l :'cmi.label_provider_amount_custom_field' %></label>
       <%
         if Setting.plugin_redmine_cmi['providers_tracker'].present? 
@@ -174,6 +193,12 @@
     <label><%=l :'cmi.label_pending_qa_statuses' %></label>
     <%= select_tag 'settings[status_pending]',
         options_from_collection_for_select(IssueStatus.all, :id, :name, (@settings['status_pending'] || []).collect(&:to_i)),
+        :multiple => true %>
+  </p>
+  <p>
+    <label><%=l :'cmi.label_bill_paid_statuses' %></label>
+    <%= select_tag 'settings[bill_paid_statuses]',
+        options_from_collection_for_select(IssueStatus.all, :id, :name, (@settings['bill_paid_statuses'] || [])),
         :multiple => true %>
   </p>
   <p>

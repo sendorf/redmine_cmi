@@ -1,0 +1,17 @@
+<tr>
+  <th rowspan=2><%= l('cmi.label_cashflow') %></th>
+  <th rowspan="1" colspan="2"><%= l('cmi.label_cashflow_current') %></th>
+  <% @metrics.each_with_index do |metric, i| -%>
+    <%= content_tag :td, :id => "cashflow_current_#{i}", :class => "issue" do -%>
+      <%= currency metric.cashflow_current %>
+    <% end -%>
+  <% end -%>
+</tr>
+<tr>
+  <th rowspan=1 colspan="2"><%= l('cmi.label_cashflow_percent') %></th>
+  <% @metrics.each_with_index do |metric, i| -%>
+    <%= content_tag :td, :id => "cashflow_percent_#{i}", :class => "issue" do -%>
+      <%= percent metric.cashflow_percent %>
+    <% end -%>
+  <% end -%>
+</tr>
