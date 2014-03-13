@@ -1,8 +1,8 @@
-require_dependency 'journal_observer'
+require_dependency 'journal'
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 module CMI
-  module JournalObserverPatch
+  module JournalPatch
     def self.included(base) # :nodoc:
       base.extend(ClassMethods)
       base.send(:include, InstanceMethods)
@@ -11,7 +11,7 @@ module CMI
       base.class_eval do
         unloadable # Send unloadable so it will be reloaded in development
 
-        alias_method_chain :after_create, :cmi
+        alias_method_chain :send_notification, :cmi
       end
     end
 
@@ -19,7 +19,7 @@ module CMI
     end
 
     module InstanceMethods
-      def after_create_with_cmi(journal)
+      def send_notification_with_cmi(journal)
         unless [ 'CmiCheckpoint' ].include? journal.journalized_type
           after_create_without_cmi(journal)
         end
@@ -30,10 +30,10 @@ end
 
 if Rails::VERSION::MAJOR >= 3
   ActionDispatch::Callbacks.to_prepare do
-    JournalObserver.send(:include, CMI::JournalObserverPatch)
+    Journal.send(:include, CMI::JournalPatch)
   end
 else
   Dispatcher.to_prepare do
-    JournalObserver.send(:include, CMI::JournalObserverPatch)
+    Journal.send(:include, CMI::JournalPatch)
   end
 end

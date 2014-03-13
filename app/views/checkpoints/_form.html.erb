@@ -9,7 +9,7 @@
 <% if @roles.length > 0
      roles = @roles.dup
      roles.push nil if roles.length.odd?
-     columns = roles.each_slice(2).collect.transpose
+     columns = roles.each_slice(2).to_a.transpose
      columns[-1].pop if columns[-1][-1].nil? %>
   <% ["splitcontentleft", "splitcontentright"].each_with_index do |css_class, i| %>
     <div class="<%= css_class %>">

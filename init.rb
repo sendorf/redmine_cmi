@@ -10,7 +10,7 @@ require 'cmi/time_entry_reports_common_patch'
 require 'cmi/user_patch'
 require 'cmi/users_helper_patch'
 require 'cmi/project_patch'
-require 'cmi/journal_observer_patch'
+require 'cmi/journal_patch'
 require 'cmi/issue_bpo_dates_required_patch'
 require 'cmi/settings_controller_patch'
 
