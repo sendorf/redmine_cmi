@@ -1,4 +1,4 @@
-#require_dependency 'journal'
+require_dependency 'journal'
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 module CMI
@@ -19,9 +19,9 @@ module CMI
     end
 
     module InstanceMethods
-      def send_notification_with_cmi(journal)
-        unless [ 'CmiCheckpoint' ].include? journal.journalized_type
-          after_create_without_cmi(journal)
+      def send_notification_with_cmi
+        unless [ 'CmiCheckpoint' ].include? journalized_type
+          send_notification_without_cmi
         end
       end
     end
