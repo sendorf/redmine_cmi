@@ -1,4 +1,4 @@
-require_dependency 'journal'
+#require_dependency 'journal'
 require 'dispatcher' unless Rails::VERSION::MAJOR >= 3
 
 module CMI
