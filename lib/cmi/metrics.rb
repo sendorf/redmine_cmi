@@ -121,8 +121,8 @@ module CMI
     end
 
     def hhrr_cost_scheduled
-      User.roles.inject(0) { |sum, role|
-        sum += (effort_scheduled_by_role(role) *
+      User.roles.inject(hhrr_cost_incurred) { |sum, role|
+        sum += ((effort_scheduled_by_role(role) - effort_done_by_role(role)) *
                 (HistoryProfilesCost.find(:first,
                                           :conditions => ['profile = ? AND year = ?', role, date.year]).try(:value) || 0.0))
       }
