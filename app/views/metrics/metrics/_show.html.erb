@@ -12,7 +12,6 @@
   <table class="list issues" border="1">
     <thead>
       <tr>
-        <th width="150"><%=l('cmi.label_area')%></th>
         <th width="150"><%=l(:label_environment)%></th>
         <th colspan="2" width="150"><%=l('cmi.label_metric')%></th>
         <% @metrics.each do |report| %>
@@ -43,15 +42,9 @@
         <%= render :partial => 'metrics/metrics/changes' %>
       <% end %>
 
-      <% unless Setting.plugin_redmine_cmi['conf_category'].blank? %>
-        <%= render :partial => 'metrics/metrics/configuration' %>
-      <% end %>
-
       <% unless Setting.plugin_redmine_cmi['qa_tracker'].blank? %>
         <%= render :partial => 'metrics/metrics/qa' %>
       <% end %>
-
-      <%= render :partial => 'metrics/metrics/measurement' %>
     </tbody>
   </table>
 </div>

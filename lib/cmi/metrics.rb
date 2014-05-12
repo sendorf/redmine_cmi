@@ -64,24 +64,6 @@ module CMI
       end
     end
 
-    def conf_effort_incurred
-      cond = [ project.project_condition(Setting.display_subprojects_issues?) <<
-               ' AND (spent_on <= ?)' <<
-               ' AND (issue_categories.name = ?)',
-               date, Setting.plugin_redmine_cmi['conf_category'] ]
-      TimeEntry.sum(:hours,
-                    :joins => [:project, {:issue => :category} ],
-                    :conditions => cond)
-    end
-
-    def conf_effort_percent
-      if effort_done.zero?
-        0.0
-      else
-        100.0 * conf_effort_incurred / effort_done
-      end
-    end
-
     def time_done
       if !project.cmi_project_info.actual_start_date.nil?
         (date - project.cmi_project_info.actual_start_date + 1).to_i
@@ -300,18 +282,6 @@ module CMI
 
     def total_cost_original
       hhrr_cost_original + material_cost_original + bpo_cost_scheduled
-    end
-
-    def total_cost_deviation
-      total_cost_scheduled - total_cost_original
-    end
-
-    def total_cost_deviation_percent
-      if total_cost_original.zero?
-        0.0
-      else
-        100.0 * total_cost_deviation / total_cost_original
-      end
     end
 
     def original_margin

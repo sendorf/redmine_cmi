@@ -1,6 +1,5 @@
 <tr>
-  <th rowspan=3><%= l('cmi.label_requirements_management') %></th>
-  <th rowspan=2><%= l('cmi.label_changes') %></th>
+  <th rowspan=2><%= l('cmi.label_changes_requirements') %></th>
   <th colspan="2"><%= l('cmi.label_accepted') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
     <%= content_tag :td, :id => "changes_accepted_#{i}", :class => "issue" do -%>
@@ -17,7 +16,7 @@
    <% end -%>
 </tr>
 <tr>
-  <th rowspan=1 colspan="3"><%= l('cmi.label_effort_done') %></th>
+  <th rowspan=1 colspan="3"><%= l('cmi.label_effort_done_requirements') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
     <%= content_tag :td, :id => "changes_effort_#{i}", :class => "issue" do -%>
       <%= hours metric.changes_effort_incurred %> (<%= percent metric.changes_effort_percent %>)

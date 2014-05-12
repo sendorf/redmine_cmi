@@ -107,9 +107,10 @@ es:
     label_requirements_management: Gestión de requisitos
     label_configuration_management: Gestión de la configuración
     label_changes: Cambios
+    label_changes_requirements: Cambios de requisitos
     label_accepted: Aceptados
     label_rejected: Rechazados
-    label_effort_done: Esfuerzo incurrido
+    label_effort_done_requirements: Esfuerzo incurrido en requisitos
     label_baseline_changes: Número de cambios en la línea base
     label_quality_assurance: Aseguramiento de la calidad
     label_quality_reviews: Revisiones de calidad
