@@ -1,41 +1,9 @@
 <tr>
-  <th rowspan=5><%= l('cmi.label_risks') %></th>
-  <th rowspan="1" colspan="2"><%= l('cmi.label_risks_high') %></th>
-  <% @metrics.each_with_index do |metric, i| -%>
-    <%= content_tag :td, :id => "risk_high_#{i}", :class => "issue" do -%>
-      <%= metric.risk_high %>
-    <% end -%>
-  <% end -%>
-</tr>
-<tr>
-  <th rowspan=1 colspan="2"><%= l('cmi.label_risks_medium') %></th>
-  <% @metrics.each_with_index do |metric, i| -%>
-    <%= content_tag :td, :id => "risk_medium_#{i}", :class => "issue" do -%>
-      <%= metric.risk_medium %>
-    <% end -%>
-  <% end -%>
-</tr>
-<tr>
-  <th rowspan=1 colspan="2"><%= l('cmi.label_risks_low') %></th>
-  <% @metrics.each_with_index do |metric, i| -%>
-    <%= content_tag :td, :id => "risk_low_#{i}", :class => "issue" do -%>
-      <%= metric.risk_low %>
-    <% end -%>
-  <% end -%>
-</tr>
-<tr>
-  <th rowspan=1 colspan="2"><%= l(:label_total) %></th>
-  <% @metrics.each_with_index do |metric, i| -%>
-    <%= content_tag :td, :id => "risk_total_#{i}", :class => "issue" do -%>
-      <%= metric.risk_total %>
-    <% end -%>
-  <% end -%>
-</tr>
-<tr>
+  <th rowspan=1><%= l('cmi.label_risks') %></th>
   <th colspan="2"><%= l('cmi.label_graphs') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
     <%= content_tag :td, :id => "risk_chart_#{i}", :class => "issue" do -%>
-      <img src="http://chart.apis.google.com/chart?cht=bhs&chd=t:<%= metric.risk_high %>,<%= metric.risk_medium %>,<%= metric.risk_low %>&chco=4D89F9,C6D9FD&chbh=10,5,10&chs=250x70&chxt=x,y&chxl=0:|0|50|100|1:|<%=l :'cmi.label_low' %>: <%= metric.risk_low %>|<%=l :'cmi.label_medium' %>: <%= metric.risk_medium %>|<%=l :'cmi.label_high' %>: <%= metric.risk_high %>|"/>
+      <img src="http://chart.apis.google.com/chart?cht=bvg&chds=a&chd=t:<%= metric.risk_high %>,<%= metric.risk_medium %>,<%= metric.risk_low %>&chco=4D89F9,C6D9FD&chbh=15,5,15&chs=100x80&chxt=x&chxl=0:|<%=l :'cmi.label_low' %>|<%=l :'cmi.label_medium' %>|<%=l :'cmi.label_high' %>|&chm=N,000000,0,-1,12"/>
     <% end -%>
   <% end -%>
 </tr>
