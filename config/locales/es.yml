@@ -14,8 +14,9 @@ es:
   field_current_budget: Presupuesto actual
   field_incurred: Gasto incurrido
   field_group: Grupo
-  field_guarantee: Meses de Garantía
+  field_guarantee: Meses de garantía
   field_base_line: Linea base
+  field_target_margin: Margen objetivo
 
   permission_cmi_management: Ver cuadro de mando general
   permission_cmi_view_metrics: Ver métricas del proyecto
@@ -82,6 +83,7 @@ es:
     label_budgets: Presupuestos
     label_profitability: Margen de contribución
     label_profitability_planned: Prevista inicial
+    label_profitability_target: Margen objetivo
     label_profitability_current: Prevista actual
     label_current_profit: Beneficio actual
     label_cashflow: Cashflow

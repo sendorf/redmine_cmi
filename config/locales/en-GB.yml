@@ -14,8 +14,9 @@ en-GB:
   field_current_budget: Current budget
   field_incurred: Incurred
   field_group: Group
-  field_guarantee: Months of Guarantee
+  field_guarantee: Months of guarantee
   field_base_line: Base line
+  field_target_margin: Target margin
 
   permission_cmi_management: View general management panel
   permission_cmi_view_metrics: View project metrics
@@ -82,6 +83,7 @@ en-GB:
     label_budgets: Budgets
     label_profitability: Profitability
     label_profitability_planned: Profitability planned
+    label_profitability_target: Profitability target
     label_profitability_current: Profitability current
     label_current_profit: Current profit
     label_cashflow: Cashflow

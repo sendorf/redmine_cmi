@@ -1,9 +1,9 @@
 <tr>
   <th rowspan=3><%= l('cmi.label_profitability') %></th>
-  <th rowspan="1" colspan="2"><%= l('cmi.label_profitability_planned') %></th>
+  <th rowspan="1" colspan="2"><%= l('cmi.label_profitability_target') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
-    <%= content_tag :td, :id => "profitability_planned_initially_#{i}", :class => "issue" do -%>
-      <%= currency metric.original_margin %> (<%= percent metric.original_margin_percent %>)
+    <%= content_tag :td, :id => "profitability_target_#{i}", :class => "issue" do -%>
+      <%= percent(metric.checkpoint.target_margin) %>
     <% end -%>
   <% end -%>
 </tr>

@@ -14,6 +14,7 @@ class CmiCheckpoint < ActiveRecord::Base
   validates_numericality_of :held_qa_meetings, :only_integer => true
   validate :role_efforts
   validate :base_line, :only_integer => true, :allow_nil => false
+  validate :target_margin, numericality: { only_integer: true }, :inclusion => (0..100), :allow_nil => false
 
   attr_protected :project_id, :author_id
   attr_reader :current_journal
