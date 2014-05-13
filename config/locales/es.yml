@@ -15,6 +15,7 @@ es:
   field_incurred: Gasto incurrido
   field_group: Grupo
   field_guarantee: Meses de Garantía
+  field_base_line: Linea base
 
   permission_cmi_management: Ver cuadro de mando general
   permission_cmi_view_metrics: Ver métricas del proyecto

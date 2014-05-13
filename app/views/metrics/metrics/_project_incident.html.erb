@@ -3,7 +3,7 @@
   <th colspan="2"><%= l('cmi.label_graphs') %></th>
   <% @metrics.each_with_index do |metric, i| -%>
     <%= content_tag :td, :id => "incident_chart_#{i}", :class => "issue" do -%>
-      <img src="http://chart.apis.google.com/chart?cht=bvg&chds=a&chd=t:<%= metric.incident_high %>,<%= metric.incident_medium %>,<%= metric.incident_low %>&chco=4D89F9,C6D9FD&chbh=15,5,15&chs=100x80&chxt=x&chxl=0:|<%=l :'cmi.label_low' %>|<%=l :'cmi.label_medium' %>|<%=l :'cmi.label_high' %>|"/>
+      <img src="http://chart.apis.google.com/chart?cht=bvg&chds=a&chd=t:<%= metric.incident_high %>,<%= metric.incident_medium %>,<%= metric.incident_low %>&chco=4D89F9,C6D9FD&chbh=15,5,15&chs=100x80&chxt=x&chxl=0:|<%=l :'cmi.label_low' %>|<%=l :'cmi.label_medium' %>|<%=l :'cmi.label_high' %>|&chm=N,000000,0,-1,12"/>
     <% end -%>
   <% end -%>
 </tr>

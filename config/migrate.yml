@@ -8,6 +8,9 @@ project_custom_fields:
   actual_start_date: Fecha real de comienzo
   guarantee: Garantia
 
+checkpoints:
+  base_line: Linea base
+
 reports:
   tracker: Informes
   custom_fields:

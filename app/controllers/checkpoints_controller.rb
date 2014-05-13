@@ -24,6 +24,13 @@ class CheckpointsController < ApplicationController
 
   def new
     @checkpoint = CmiCheckpoint.new @project
+    
+    if @project.first_checkpoint.blank?
+      @checkpoint.base_line = true
+    else
+      @checkpoint.base_line = false
+    end
+    
     @roles.each do |role|
       @checkpoint.cmi_checkpoint_efforts.build :role => role
     end

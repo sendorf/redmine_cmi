@@ -49,7 +49,7 @@ module CMI
     end
 
     def effort_original_by_role(role)
-      project.cmi_project_info.scheduled_role_effort(role)
+      project.last_base_line(date).scheduled_role_effort(role)
     end
 
     def effort_original

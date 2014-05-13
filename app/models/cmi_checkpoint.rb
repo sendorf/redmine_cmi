@@ -13,10 +13,12 @@ class CmiCheckpoint < ActiveRecord::Base
   validates_format_of :scheduled_finish_date, :with => /^\d{4}-\d{2}-\d{2}$/, :message => :not_a_date, :allow_nil => false
   validates_numericality_of :held_qa_meetings, :only_integer => true
   validate :role_efforts
+  validate :base_line, :only_integer => true, :allow_nil => false
 
   attr_protected :project_id, :author_id
   attr_reader :current_journal
-  after_save :create_journal
+  after_save :create_journal, :set_first_base_line
+  after_destroy :set_first_base_line
 
   def attachments
     []
@@ -118,6 +120,17 @@ class CmiCheckpoint < ActiveRecord::Base
       @current_journal.save
       # reset current journal
       init_journal @current_journal.user, @current_journal.notes
+    end
+  end
+
+  # Update oldest checkpoint as base line
+  # Called after_save and after_destroy
+  def set_first_base_line
+    first_checkpoint = project.first_checkpoint
+    
+    if first_checkpoint.present? && !first_checkpoint.base_line
+      first_checkpoint.base_line = true
+      first_checkpoint.save
     end
   end
 end

@@ -28,7 +28,7 @@ class MetricsController < ApplicationController
   end
 
   def info
-    @cmi_project_info = CmiProjectInfo.find_by_project_id @project.id, :include => :cmi_project_efforts
+    @cmi_project_info = CmiProjectInfo.find_by_project_id @project.id
     unless @cmi_project_info
       @cmi_project_info = CmiProjectInfo.new :project_id => @project.id
     end

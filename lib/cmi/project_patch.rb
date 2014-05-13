@@ -37,6 +37,23 @@ module CMI
                       :include => [:project],
                       :conditions => cond)
       end
+
+      def first_checkpoint
+        cmi_checkpoints.find(:first,
+                             :order => 'checkpoint_date ASC')
+      end
+
+      def last_base_line(date=Date.today)
+        base_line = cmi_checkpoints.find(:first,
+                             :conditions => ['base_line = true AND checkpoint_date <= ?',date],
+                             :order => 'checkpoint_date DESC')
+
+        if !base_line
+          base_line = first_checkpoint
+        end
+
+        base_line
+      end
     end
   end
 end

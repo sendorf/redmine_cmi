@@ -15,6 +15,7 @@ en:
   field_incurred: Incurred
   field_group: Group
   field_guarantee: Months of Guarantee
+  field_base_line: Base line
 
   permission_cmi_management: View general management panel
   permission_cmi_view_metrics: View project metrics
