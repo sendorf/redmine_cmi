@@ -1,16 +1,7 @@
-<%
-  class_eval do
-    include ViewHelper
-  end
+<% content_for :header_tags do %>
+  <%= javascript_include_tag "cost_history.js", :plugin => 'redmine_cmi' %>
+<% end %>
 
-  @roles = []
-  costs = (HistoryProfilesCost.find :all)
-  costs.each do |cost|
-    @roles << cost.profile unless @roles.include?(cost.profile)
-  end
-  @year_costs = costs.group_by(&:year)
-  @years = @year_costs.keys.sort.reverse
-%>
 <h2><%=l('cmi.label_cost_history')%></h2>
 
 <table class="list">
@@ -19,15 +10,35 @@
   <% @roles.each do |role| %>
     <th><%=h role %></th>
   <% end %>
+  <th></th>
 </tr>
 
 <% @years.each do |year| %>
 <tr class="<%= cycle 'odd', 'even' %>">
   <th class="center"><%= year %></th>
   <% @roles.each do |role| %>
-    <td class="center"><%= currency (begin @year_costs[year].find{|c|c.profile ==role}.value rescue '--' end) %></td>
+    <% cost = begin @year_costs[year].find{|c|c.profile ==role}.value rescue '--' end %>
+    <td class="center editable"><%= currency ("<span class='"+role+"'>"+cost.to_s+"</span>").html_safe %></td>
   <% end %>
+  <td><%= link_to l(:button_edit), '#', :class => 'icon icon-edit' %></td>
 </tr>
 <% end %>
 </table>
-<% reset_cycle %>
+
+<div>
+  <%= form_tag controller: 'history_profiles_cost', action: 'new_year_costs' do %>
+  <fieldset>
+    <legend><%= l('cmi.label_add_year_costs', :year => @next_year) %></legend>
+    <%= hidden_field_tag 'year', @next_year %>
+    <div>
+    <% @roles.each do |role| %>
+      <div>
+        <%= label_tag role %>
+        <%= text_field_tag 'values['+role+']', '', size: 10 %>
+      </div>
+    <% end %>
+    </div>
+    <%= submit_tag l(:"button_create") %>
+  </fieldset>
+  <% end %>
+</div>

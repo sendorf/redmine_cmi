@@ -13,6 +13,8 @@ require 'cmi/project_patch'
 require 'cmi/journal_patch'
 require 'cmi/issue_bpo_dates_required_patch'
 require 'cmi/settings_controller_patch'
+require 'cmi/admin_controller_patch'
+
 
 Redmine::Plugin.register :redmine_cmi do
   Rails.configuration.after_initialize do

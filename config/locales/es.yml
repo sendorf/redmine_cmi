@@ -131,7 +131,9 @@ es:
     label_profile_plural: Perfiles
     label_from: Desde
     label_end: Hasta
+    label_at_present: Actualmente
     label_cost_history: Evolución de coste por perfil
+    label_add_year_costs: "Añadir costes para el año %{year}"
     label_hours: horas
     label_filter_by: Filtrar por
     label_current_value: Valor actual - %{date}

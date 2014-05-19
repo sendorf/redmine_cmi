@@ -38,6 +38,8 @@ RedmineApp::Application.routes.draw do
   match '/projects/:project_id/metrics/:action' => 'metrics', :as => :metrics
   match '/management/:action' => 'management', :as => :management
   match '/admin/cost_history' => 'admin#cost_history', :as => :cost_history
+  match '/history_profiles_cost/:action' => 'history_profiles_cost'
+  match '/history_user_profile/:action' => 'history_user_profile'
 #  map.metrics '/projects/:project_id/metrics/:action', :controller => 'metrics'
 #  map.management '/management/:action', :controller => 'management'
 #  map.cost_history '/admin/cost_history', :controller => 'admin', :action => 'cost_history'

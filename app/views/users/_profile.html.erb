@@ -1,3 +1,10 @@
+<% content_for :header_tags do %>
+  <%= javascript_include_tag "user_history.js", :plugin => 'redmine_cmi' %>
+<% end %>
+
+<%=javascript_tag("var user_id = "+@user.id.to_s+"; var profile_options = "+User.roles.to_s+"; var at_present = '"+l('cmi.label_at_present')+"';")%>
+
+
 <% profile_list = HistoryUserProfile.find_all_by_user_id @user.id %>
 <div class="splitcontentleft">
   <table class="list memberships">
@@ -5,17 +12,17 @@
 	  <th><%= l('cmi.label_profile_plural') %></th>
 	  <th><%= l('cmi.label_from') %></th>
 	  <th><%= l('cmi.label_end') %></th>
+    <th></th>
 	</thead>
 	<tbody>
-      <% profile_list.each do |p| %>
-      <tr class="<%= cycle 'odd', 'even' %> class">
-        <td class="project center"><%= p.profile %></td>
-        <td class="project center"><%= !p.created_on.nil? ? p.created_on.strftime('%d %B %Y') : "--" %></td>
-        <td class="project center"><%= !p.finished_on.nil? ? p.finished_on.strftime('%d %B %Y') : Date.today.strftime('%d %B %Y') %></td>
-      </tr>
-      <% end %>
+    <% profile_list.each do |p| %>
+    <tr class="<%= cycle 'odd', 'even' %> class" row_id="<%=p.id%>">
+      <td class="project center editable"><span class="profile"><%= p.profile %></span></td>
+      <td class="project center editable"><span class="created_on"><%= !p.created_on.nil? ? p.created_on.strftime('%Y-%m-%d') : "--" %></span></td>
+      <td class="project center editable"><span class="finished_on"><%= !p.finished_on.nil? ? p.finished_on.strftime('%Y-%m-%d') : l('cmi.label_at_present') %></span></td>
+      <td><%= link_to l(:button_edit), '#', :class => 'icon icon-edit' %></td>
+    </tr>
+    <% end %>
 	</tbody>
   </table>
 </div>
-
-
