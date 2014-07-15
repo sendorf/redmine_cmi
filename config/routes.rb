@@ -26,6 +26,7 @@ RedmineApp::Application.routes.draw do
     end
   end
 
+resources :history_user_profile
 
 #  resources :checkpoints,
 #                :path_prefix => '/projects/:project_id/metrics',
@@ -39,7 +40,10 @@ RedmineApp::Application.routes.draw do
   match '/management/:action' => 'management', :as => :management
   match '/admin/cost_history' => 'admin#cost_history', :as => :cost_history
   match '/history_profiles_cost/:action' => 'history_profiles_cost'
-  match '/history_user_profile/:action' => 'history_user_profile'
+  #match '/history_user_profile/:action' => 'history_user_profile'
+  #match '/history_user_profile/edit/:id' => 'history_user_profile#edit'
+
+
 #  map.metrics '/projects/:project_id/metrics/:action', :controller => 'metrics'
 #  map.management '/management/:action', :controller => 'management'
 #  map.cost_history '/admin/cost_history', :controller => 'admin', :action => 'cost_history'

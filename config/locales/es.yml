@@ -149,6 +149,7 @@ es:
     label_provider_paid_date_custom_field: Fecha de pago del proveedor
     label_bill_paid_statuses: Estados de factura pagada
     label_providers_paid_statuses: Estados de proveedor pagado
+    label_add_user_profile: Añadir nuevo perfil
 
     cmi_module_not_enabled: No está habilitado el módulo 'Métricas'
     cmi_expense_tracker_not_available: No existe el tracker gastos

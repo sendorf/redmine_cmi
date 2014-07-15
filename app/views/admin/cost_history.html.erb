@@ -11,6 +11,7 @@
     <th><%=h role %></th>
   <% end %>
   <th></th>
+  <th></th>
 </tr>
 
 <% @years.each do |year| %>
@@ -21,24 +22,39 @@
     <td class="center editable"><%= currency ("<span class='"+role+"'>"+cost.to_s+"</span>").html_safe %></td>
   <% end %>
   <td><%= link_to l(:button_edit), '#', :class => 'icon icon-edit' %></td>
+  <td><%= link_to l(:button_delete), {:controller => 'history_profiles_cost', :action => 'delete_year_costs', :year => year}, :data => {:confirm => l(:text_are_you_sure)}, :class => 'icon icon-del' %></td>
 </tr>
 <% end %>
 </table>
 
-<div>
+<div id="new_history_profiles_cost">
   <%= form_tag controller: 'history_profiles_cost', action: 'new_year_costs' do %>
-  <fieldset>
-    <legend><%= l('cmi.label_add_year_costs', :year => @next_year) %></legend>
-    <%= hidden_field_tag 'year', @next_year %>
-    <div>
-    <% @roles.each do |role| %>
-      <div>
-        <%= label_tag role %>
-        <%= text_field_tag 'values['+role+']', '', size: 10 %>
+    <fieldset class="box tabular">
+      <legend><%= l('cmi.label_add_year_costs', :year => @next_year) %></legend>
+      <%= hidden_field_tag 'year', @next_year %>
+
+      <div class='splitcontentleft'>
+        <% for i in (0..@roles.count-1).step(2) %>
+          <% role = @roles[i] %>
+          <p>
+            <%= label_tag role %>
+            <%= text_field_tag 'values['+role+']', '', size: 10 %>
+          </p>
+        <% end %>
       </div>
-    <% end %>
-    </div>
+
+      <div class='splitcontentright'>
+        <% for i in (1..@roles.count-1).step(2) %>
+          <% role = @roles[i] %>
+          <p>
+            <%= label_tag role %>
+            <%= text_field_tag 'values['+role+']', '', size: 10 %>
+          </p>
+        <% end %>
+      </div>
+      <div style="clear:both;"></div>
+    </fieldset>
     <%= submit_tag l(:"button_create") %>
-  </fieldset>
   <% end %>
 </div>
+

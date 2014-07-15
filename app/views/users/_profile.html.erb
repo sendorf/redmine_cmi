@@ -1,3 +1,4 @@
+<%= csrf_meta_tag %>
 <% content_for :header_tags do %>
   <%= javascript_include_tag "user_history.js", :plugin => 'redmine_cmi' %>
 <% end %>
@@ -6,23 +7,55 @@
 
 
 <% profile_list = HistoryUserProfile.find_all_by_user_id @user.id %>
-<div class="splitcontentleft">
-  <table class="list memberships">
-	<thead>
-	  <th><%= l('cmi.label_profile_plural') %></th>
-	  <th><%= l('cmi.label_from') %></th>
-	  <th><%= l('cmi.label_end') %></th>
-    <th></th>
-	</thead>
-	<tbody>
-    <% profile_list.each do |p| %>
-    <tr class="<%= cycle 'odd', 'even' %> class" row_id="<%=p.id%>">
-      <td class="project center editable"><span class="profile"><%= p.profile %></span></td>
-      <td class="project center editable"><span class="created_on"><%= !p.created_on.nil? ? p.created_on.strftime('%Y-%m-%d') : "--" %></span></td>
-      <td class="project center editable"><span class="finished_on"><%= !p.finished_on.nil? ? p.finished_on.strftime('%Y-%m-%d') : l('cmi.label_at_present') %></span></td>
-      <td><%= link_to l(:button_edit), '#', :class => 'icon icon-edit' %></td>
-    </tr>
+<div>
+  <form id="history_user_profile_form" action="/history_user_profile/edit">
+    <%= hidden_field_tag 'authenticity_token', form_authenticity_token %>
+    <table class="list memberships">
+    	<thead>
+    	  <th><%= l('cmi.label_profile_plural') %></th>
+    	  <th><%= l('cmi.label_from') %></th>
+    	  <th><%= l('cmi.label_end') %></th>
+        <th></th>
+        <th></th>
+    	</thead>
+    	<tbody>
+        <% profile_list.each do |p| %>
+        <tr class="<%= cycle 'odd', 'even' %> class" row_id="<%=p.id%>">
+          <td class="project center editable"><span class="profile"><%= p.profile %></span></td>
+          <td class="project center editable"><span class="created_on"><%= !p.created_on.nil? ? p.created_on.strftime('%Y-%m-%d') : "--" %></span></td>
+          <td class="project center editable"><span class="finished_on"><%= !p.finished_on.nil? ? p.finished_on.strftime('%Y-%m-%d') : l('cmi.label_at_present') %></span></td>
+          <td><%= link_to l(:button_edit), '#', :class => 'icon icon-edit' %></td>
+          <td><%= link_to l(:button_delete), {:controller => 'history_user_profile', :id => p.id, :action => 'destroy'}, :method => :delete, :data => {:confirm => l(:text_are_you_sure)}, :class => 'icon icon-del' %></td>
+        </tr>
+        <% end %>
+    	</tbody>
+    </table>
+  </form>
+
+  <br>
+  <div id="new_history_user_profile">
+    <%= form_for :history_user_profile, url: {controller: "history_user_profile", action: "new"}, method: 'get' do |f| %>
+      <fieldset class="box tabular">
+        <legend><%= l('cmi.label_add_user_profile') %></legend>
+        <%= f.hidden_field :user_id, :value => @user.id %>
+        <p>
+          <%= f.label :profile, l('cmi.label_profile_plural') %>
+          <%= f.select :profile, options_for_select(User.roles) %>
+        </p>
+        <p>
+          <%= f.label :created_on, l('cmi.label_from') %>
+          <%= f.text_field :created_on %><%= calendar_for('history_user_profile_created_on') %>
+        </p>
+        <p>
+          <%= f.label :at_present, l('cmi.label_at_present') %>
+          <%= check_box_tag 'at_present', :id => 'prueba' %>
+        </p>
+        <p>
+          <%= f.label :finished_on, l('cmi.label_end') %>
+          <%= f.text_field :finished_on %><%= calendar_for('history_user_profile_finished_on') %>
+        </p>
+      </fieldset>
+      <div><%= f.submit l(:button_submit) %></div>
     <% end %>
-	</tbody>
-  </table>
+  </div>
 </div>

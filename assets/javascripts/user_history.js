@@ -1,4 +1,10 @@
 $(document).ready(function(){
+	// Not allow modify date inputs manually (only with calendar)
+	$(document).on('focus','input.hasDatepicker',function(){
+		$(this).blur();
+	});
+
+	// Show input fields when click on edit icon
 	$(document).on('click', '.icon-edit', function(){
 		row = $(this).parent().parent();
 
@@ -9,7 +15,9 @@ $(document).ready(function(){
 		edit_to_save($(this));
 	});
 
+	// Save row data when click on save icon
 	$(document).on('click', '.icon-save', function(){
+		/*
 		row = $(this).parent().parent();
 
 		$.ajax({
@@ -23,26 +31,33 @@ $(document).ready(function(){
 		});
 
 		save_to_edit($(this));
+		*/
+		row = $(this).parent().parent();
+		//$('#history_user_profile_form').attr('action',$('#history_user_profile_form').attr('action')+'/'+$(row).attr('row_id'));
+		$('#history_user_profile_form').attr('action','/history_user_profile/'+$(row).attr('row_id')+'/edit');
+		$('#history_user_profile_form').submit();
 	});
 
+	// Disable finished_on field when at_present input is checked
 	$(document).on('click', 'input[name=at_present]', function(){
 		if ($(this).is(':checked')){
-			$('input[name=finished_on]').attr('disabled',true);
-			$('input[name=finished_on]').datepicker('destroy');
+			$('input[name="history_user_profile[finished_on]"]', $(this).closest('form')).attr('disabled',true);
+			$('input[name="history_user_profile[finished_on]"]', $(this).closest('form')).datepicker('destroy');
 		} else {
-			$('input[name=finished_on]').attr('disabled',false);
-			$('input[name=finished_on]').datepicker(datepickerOptions);
+			$('input[name="history_user_profile[finished_on]"]', $(this).closest('form')).attr('disabled',false);
+			$('input[name="history_user_profile[finished_on]"]', $(this).closest('form')).datepicker(datepickerOptions);
 		}
 	});
 });
 
+// Turns a readonly field to input
 function span_to_input(span){
 	value = $(span).html();
 	name = $(span).attr('class');
 
 	switch(name){
 		case 'profile':
-			select = "<select name='"+name+"'>";
+			select = "<select name='history_user_profile["+name+"]'>";
 			$.each(profile_options, function(index,profile){
 				if (profile == value){
 					select += "<option selected>"+profile+"</option>";
@@ -57,7 +72,7 @@ function span_to_input(span){
 		case 'created_on':
 			input = $("<input />", {
 				'class': 'calendar',
-				'name': name,
+				'name': 'history_user_profile['+name+']',
 				'value': value
 			});
 	
@@ -67,11 +82,11 @@ function span_to_input(span){
 		break;
 		case 'finished_on':
 			if (value == at_present){
-				checkbox = "<input type='checkbox' name='at_present' checked/><label for='at_present'>"+at_present+"</label>";
-				calendar = "<input class='calendar' name='"+name+"' disabled />";
+				checkbox = "<input type='checkbox' name='at_present' checked/><label>"+at_present+"</label>";
+				calendar = "<input class='calendar' name='history_user_profile["+name+"]' disabled />";
 			} else {
-				checkbox = "<input type='checkbox' name='at_present' /><label for='at_present'>"+at_present+"</label>";
-				calendar = "<input class='calendar' name='"+name+"' value="+value+" />";
+				checkbox = "<input type='checkbox' name='at_present' /><label>"+at_present+"</label>";
+				calendar = "<input class='calendar' name='history_user_profile["+name+"]' value="+value+" />";
 			}
 
 			input = $(checkbox+calendar);
@@ -79,7 +94,7 @@ function span_to_input(span){
 			$(span).before(input);
 
 			if (value != at_present){
-				$('input[name=finished_on]').datepicker(datepickerOptions);
+				$('input[name="history_user_profile[finished_on]"]').datepicker(datepickerOptions);
 			}
 			
 		break;
@@ -87,7 +102,7 @@ function span_to_input(span){
 
 	$(span).remove();
 }
-
+/*
 function input_to_span(input){
 	value = $(input).val();
 	sclass = $(input).attr('name');
@@ -111,12 +126,17 @@ function input_to_span(input){
 
 	
 }
+*/
 
-
+// Change edit icon with save icon
 function edit_to_save(link){
 	$(link).attr('class','icon icon-save');
+
+	$('a.icon-edit').hide();
 }
 
+/*
 function save_to_edit(link){
 	$(link).attr('class','icon icon-edit');
 }
+*/

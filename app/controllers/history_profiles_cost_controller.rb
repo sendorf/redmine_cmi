@@ -44,4 +44,14 @@ class HistoryProfilesCostController < ApplicationController
 
     redirect_to '/admin/cost_history'
   end
+
+  def delete_year_costs
+    history_profiles_costs = HistoryProfilesCost.find(:all, :conditions => {:year => params[:year]})
+
+    history_profiles_costs.each do |hpc|
+      hpc.delete
+    end
+
+    redirect_to '/admin/cost_history'
+  end
 end

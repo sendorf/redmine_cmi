@@ -148,6 +148,7 @@ en-GB:
     label_provider_paid_date_custom_field: Provider payment day
     label_bill_paid_statuses: Status for paid bill
     label_providers_paid_statuses: Status for paid provider
+    label_add_user_profile: Add new user profile
 
     cmi_module_not_enabled: The module 'Metrics' is not enabled
     cmi_expense_tracker_not_available: There is not 'expense' tracker available
