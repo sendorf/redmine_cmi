@@ -53,6 +53,13 @@ function span_to_input(span){
 
 function input_to_span(input){
 	cost = $(input).val();
+
+	if ($.isNumeric($(input).val())){
+		cost = $(input).val();
+	} else {
+		cost = "0.0";
+	}
+
 	sclass = $(input).attr('name');
 	span = $("<span />").attr('class',sclass).html(cost);
 	$(input).before(span);
