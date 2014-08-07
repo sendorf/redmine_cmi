@@ -1,11 +1,8 @@
 # A sample Gemfile
 source "http://rubygems.org"
 
-gem "rake"
-gem "rails", "=3.2.17"
 gem "i18n", "~>0.6.0"
 #gem "rubytree", :require => "tree"
-gem "coderay", "~>1.1.0"
 gem "fastercsv", "~> 1.5.0"
 gem "tzinfo", "~> 0.3.31"
 gem "net-ldap", "~> 0.3.1"
