@@ -43,6 +43,38 @@ module ManagementHelper
     bar_graph(cm, labels, :max => 100)
   end
 
+  def get_profitability_columns(selected_columns, options_for_select = false)
+    columns = {'name' => {'label'=>l('label_project'), 'method'=>'name'},
+              'bpo' => {'label'=>l('cmi.label_bpo'), 'method'=>'total_bpo'},
+              'cost' => {'label'=>l('cmi.label_cost'), 'method'=>'total_cost'}, 
+              'effort' => {'label'=>l('cmi.label_effort'), 'method'=>'total_effort'}, 
+              'income' => {'label'=>l('cmi.label_income'), 'method'=>'total_income'},
+              'mc' => {'label'=>'MC', 'method'=>'actual_mc'},
+              'mc_percent' => {'label'=>'%MC', 'method'=>'actual_mc_percent'}}
+
+    result = []
+
+    if selected_columns == 'all'
+      columns.each do |name,data|
+        if options_for_select
+          result << [data['label'], name]
+        else
+          result << data
+        end
+      end
+    else
+      selected_columns.each do |col|
+        if options_for_select
+          result << [columns[col]['label'], col]
+        else
+          result << columns[col]
+        end
+      end
+    end
+
+    result
+  end
+
   # TODO: This is a temporary redefinition for compatibility with Redmine 1.0.0
   if not ApplicationHelper.instance_methods.include?(:link_to_project)
     # Generates a link to a project if active
@@ -62,6 +94,8 @@ module ManagementHelper
       end
     end
   end
+
+
 
   private
 

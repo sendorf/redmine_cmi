@@ -20,6 +20,33 @@ module CMI
       def groups
         Setting.plugin_redmine_cmi['groups'].to_s.split(/[\n\r]+/) || []
       end
+
+      def get_active(service, region)
+        service_custom_field_id = Setting.plugin_redmine_cmi['project_service_custom_field'];
+        region_custom_field_id = Setting.plugin_redmine_cmi['project_region_custom_field'];
+        service_query = [];
+        region_query = [];
+
+        if service.blank? && region.blank?
+          Project.includes(:time_entries).where("status != ? AND time_entries.tyear >= ?", 9, Time.zone.now.beginning_of_year)
+        else
+          if service.present?
+            service_query = Project.includes(:custom_values, :time_entries).where("status != ? AND time_entries.tyear >= ? AND custom_values.custom_field_id = ? AND custom_values.value = ?", 9, Time.zone.now.beginning_of_year, service_custom_field_id, service)
+          end
+
+          if region.present?
+            region_query = Project.includes(:custom_values, :time_entries).where("status != ? AND time_entries.tyear >= ? AND custom_values.custom_field_id = ? AND custom_values.value = ?", 9, Time.zone.now.beginning_of_year, region_custom_field_id, region)
+          end
+
+          if service_query.present? && region_query.present?
+            service_query&region_query
+          elsif service_query.present?
+            service_query
+          else
+            region_query 
+          end
+        end
+      end
     end
 
     module InstanceMethods
@@ -53,6 +80,32 @@ module CMI
         end
 
         base_line
+      end
+
+      
+      def total_bpo
+        500
+      end
+
+      def total_effort
+        #User.roles.inject(0.0) { |sum, role| sum + effort_done_by_role(role, Date.today) }
+        750
+      end
+
+      def total_cost
+        1000
+      end
+
+      def total_income
+        5000
+      end
+
+      def actual_mc
+        200
+      end
+
+      def actual_mc_percent
+        "38%"
       end
     end
   end

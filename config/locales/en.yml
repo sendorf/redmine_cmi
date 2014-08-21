@@ -51,7 +51,7 @@ en:
     label_stages_cmi: Product life cycle
     label_archived: Archived
 
-    label_income: 'Total income: '
+    label_income: 'Total income'
 
     label_area: Area
     label_metric: Metrics
@@ -81,6 +81,7 @@ en:
     label_advance: Advance
     label_effort_plural: Efforts
     label_budgets: Budgets
+    label_profitability_menu: Profitability
     label_profitability: Profitability
     label_profitability_planned: Profitability planned
     label_profitability_target: Profitability target
@@ -149,6 +150,8 @@ en:
     label_bill_paid_statuses: Status for paid bill
     label_providers_paid_statuses: Status for paid provider
     label_add_user_profile: Add new user profile
+    label_project_service_custom_field: Service
+    label_project_region_custom_field: Region
 
     cmi_module_not_enabled: The module 'Metrics' is not enabled
     cmi_expense_tracker_not_available: There is not 'expense' tracker available
@@ -162,6 +165,7 @@ en:
     caption_groups: Groups
     caption_projects: Projects
     caption_metrics: Metrics
+    caption_profitability: Profitability
 
     no_project_info: "Basic info not found. It's necessary to be able to show metrics."
     no_actual_start_date: "No actual start date in basic info. Cannot make calculations."

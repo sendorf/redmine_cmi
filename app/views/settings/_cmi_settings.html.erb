@@ -140,6 +140,22 @@
         });
       </script>
     </p>
+
+    <p>
+      <label><%=l :'cmi.label_project_service_custom_field' %></label>
+      <%
+        options = ('<option></option>'+options_from_collection_for_select(ProjectCustomField.all, :id, :name, @settings['project_service_custom_field'].to_i)).html_safe
+      %>
+      <%= select_tag 'settings[project_service_custom_field]', options %>
+    </p>
+
+    <p>
+      <label><%=l :'cmi.label_project_region_custom_field' %></label>
+      <%
+        options = ('<option></option>'+options_from_collection_for_select(ProjectCustomField.all, :id, :name, @settings['project_region_custom_field'].to_i)).html_safe
+      %>
+      <%= select_tag 'settings[project_region_custom_field]', options %>
+    </p>
   </fieldset>
 
   <p>

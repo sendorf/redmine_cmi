@@ -51,7 +51,7 @@ es:
     label_stages_cmi: Ciclo de vida
     label_archived: Archivados
 
-    label_income: 'Ingresos: '
+    label_income: 'Ingresos'
 
     label_area: Área de proceso
     label_metric: Métrica
@@ -81,6 +81,7 @@ es:
     label_advance: Avance
     label_effort_plural: Esfuerzos
     label_budgets: Presupuestos
+    label_profitability_menu: Rentabilidad
     label_profitability: Margen de contribución
     label_profitability_planned: Prevista inicial
     label_profitability_target: Margen objetivo
@@ -150,6 +151,8 @@ es:
     label_bill_paid_statuses: Estados de factura pagada
     label_providers_paid_statuses: Estados de proveedor pagado
     label_add_user_profile: Añadir nuevo perfil
+    label_project_service_custom_field: Servicio
+    label_project_region_custom_field: Región
 
     cmi_module_not_enabled: No está habilitado el módulo 'Métricas'
     cmi_expense_tracker_not_available: No existe el tracker gastos
@@ -163,6 +166,7 @@ es:
     caption_groups: Grupos
     caption_projects: Proyectos
     caption_metrics: Métricas
+    caption_profitability: Rentabilidad
 
     no_project_info: "No se ha cumplimentado la información base. Es necesario para poder mostrar las métricas."
     no_actual_start_date: "No se ha rellenado la fecha de comienzo real en la información base. No se pueden realizar los cálculos."

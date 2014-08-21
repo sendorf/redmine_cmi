@@ -1,6 +1,7 @@
 class ManagementController < ApplicationController
   unloadable
 
+  include ManagementHelper
   before_filter :set_menu_item
   before_filter :authorize_global, :get_groups
   before_filter :get_roles, :only => :groups
@@ -21,6 +22,27 @@ class ManagementController < ApplicationController
     @metrics = group_metrics.metrics
     @total_cm = group_metrics.total_cm
     @total_deviation_percent = group_metrics.total_deviation_percent
+  end
+
+  def profitability
+    service_custom_field_id = Setting.plugin_redmine_cmi['project_service_custom_field'];
+    region_custom_field_id = Setting.plugin_redmine_cmi['project_region_custom_field'];
+    @columns = ['name','bpo','cost','effort','income','mc','mc_percent']
+    # @error = true if plugin is not config in admin menu
+    @error = false
+
+    if service_custom_field_id.blank? || region_custom_field_id.blank?
+      @error = true
+    else
+      if params['columns'].present?
+        @columns = params['columns']
+      end
+
+      @columns_data = get_profitability_columns(@columns)
+      @projects = Project.get_active(params['service_filter'], params['region_filter'])
+      @service_options = CustomField.find(service_custom_field_id).possible_values
+      @region_options = CustomField.find(region_custom_field_id).possible_values
+    end
   end
 
   private
