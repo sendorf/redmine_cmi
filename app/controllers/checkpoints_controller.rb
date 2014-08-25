@@ -10,8 +10,8 @@ class CheckpointsController < ApplicationController
 
   def index
     @limit = per_page_option
-    @count = CmiCheckpoint.count
-    @pages = Paginator.new self, @count, @limit, params['page']
+    @count = CmiCheckpoint.where('project_id = ?', @project).count
+    @pages = Paginator.new @count, @limit, params['page']
     @offset ||= @pages.current.offset
     @sort = sort_column
     @order = sort_direction
