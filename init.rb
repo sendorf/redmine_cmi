@@ -14,7 +14,8 @@ require 'cmi/journal_patch'
 require 'cmi/issue_bpo_dates_required_patch'
 require 'cmi/settings_controller_patch'
 require 'cmi/admin_controller_patch'
-#require 'cmi/issue_patch'
+require 'cmi/issue_patch'
+#require 'cmi/custom_value_patch'
 
 
 Redmine::Plugin.register :redmine_cmi do
@@ -55,7 +56,7 @@ Redmine::Plugin.register :redmine_cmi do
        :after => :settings,
        :param => :project_id
 
-  menu :top_menu, :cmi, { :controller => 'management', :action => 'profitability'},
+  menu :top_menu, :cmi, { :controller => 'management', :action => 'summary'},
        :caption => 'CMI',
        :if => Proc.new { User.current.allowed_to?(:cmi_management, nil, :global => true) }
 
@@ -67,6 +68,9 @@ Redmine::Plugin.register :redmine_cmi do
 
   menu :scoreboard_menu, :groups, { :controller => 'management', :action => 'groups' },
        :caption => :'cmi.caption_groups'
+
+  menu :scoreboard_menu, :summary, { :controller => 'management', :action => 'summary' },
+       :caption => :'cmi.caption_summary'
 
   menu :scoreboard_menu, :profitability, { :controller => 'management', :action => 'profitability' },
        :caption => :'cmi.caption_profitability'

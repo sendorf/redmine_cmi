@@ -45,6 +45,44 @@ class ManagementController < ApplicationController
     end
   end
 
+  def summary
+    service_custom_field_id = Setting.plugin_redmine_cmi['project_service_custom_field'];
+    region_custom_field_id = Setting.plugin_redmine_cmi['project_region_custom_field'];
+
+    service_options = CustomField.find(service_custom_field_id).possible_values
+    region_options = CustomField.find(region_custom_field_id).possible_values
+
+    @services = []
+    service_options.each do |service|
+      total_income = CustomValue.where('customized_type = ? AND custom_field_id = ? AND value = ?', "Project", service_custom_field_id, service).inject(0.0){ |sum, cv| sum + cv.customized.total_income}
+      total_cost = CustomValue.where('customized_type = ? AND custom_field_id = ? AND value = ?', "Project", service_custom_field_id, service).inject(0.0){ |sum, cv| sum + cv.customized.total_cost}
+      #@services[service] = (total_income-total_cost)/total_income
+      if total_income!=0
+        mc = (total_income-total_cost)/total_income
+      else
+        mc = 0
+      end
+
+      @services << [service, total_income-total_cost, mc]
+    end
+    @services_json = @services.to_json.html_safe
+
+    @regions = []
+    region_options.each do |region|
+      total_income = CustomValue.where('customized_type = ? AND custom_field_id = ? AND value = ?', "Project", region_custom_field_id, region).inject(0.0){ |sum, cv| sum + cv.customized.total_income}
+      total_cost = CustomValue.where('customized_type = ? AND custom_field_id = ? AND value = ?', "Project", region_custom_field_id, region).inject(0.0){ |sum, cv| sum + cv.customized.total_cost}
+      #@regions[region] = (total_income-total_cost)/total_income
+      if total_income!=0
+        mc = (total_income-total_cost)/total_income
+      else
+        mc = 0
+      end
+
+      @regions << [region, total_income-total_cost, mc]
+    end
+    @regions_json = JSON.generate(@regions.as_json).html_safe
+  end
+
   private
 
   def set_menu_item

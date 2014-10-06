@@ -19,7 +19,7 @@
     <% @projects.each do |p| %>
       <tr>
         <% @columns_data.each do |col| %>
-          <td><%= p.instance_eval(col['method']) %></td>
+          <td><%= p.instance_eval(col['method']) %><%= col['unit'] %></td>
         <% end %>
       </tr>
     <% end %>

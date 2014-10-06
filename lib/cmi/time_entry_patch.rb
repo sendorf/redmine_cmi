@@ -12,6 +12,9 @@ module CMI
       base.class_eval do
         unloadable # Send unloadable so it will be reloaded in development
         before_save :update_role_and_cost
+        after_create :add_profitability_metrics
+        after_update :update_profitability_metrics
+        after_destroy :remove_profitability_metrics
       end
     end
 
@@ -25,6 +28,25 @@ module CMI
         if attribute_present?("hours") and self.role.present?
           self.cost = (self.hours.to_f * @hash_cost_actual_year["#{self.role}"].first.value.to_f)
         end
+      end
+
+      def add_profitability_metrics
+        self.project.cmi_project_info.total_effort += self.cost
+        self.project.cmi_project_info.save
+      end
+
+      def update_profitability_metrics
+        old_attributes = changed_attributes()
+
+        if old_attributes['cost'].present?
+          self.project.cmi_project_info.total_effort += self.cost - old_attributes['cost']
+        end
+        self.project.cmi_project_info.save
+      end
+
+      def remove_profitability_metrics
+        self.project.cmi_project_info.total_effort -= self.cost
+        self.project.cmi_project_info.save
       end
     end
   end

@@ -50,7 +50,7 @@ module ManagementHelper
               'effort' => {'label'=>l('cmi.label_effort'), 'method'=>'total_effort'}, 
               'income' => {'label'=>l('cmi.label_income'), 'method'=>'total_income'},
               'mc' => {'label'=>'MC', 'method'=>'actual_mc'},
-              'mc_percent' => {'label'=>'%MC', 'method'=>'actual_mc_percent'}}
+              'mc_percent' => {'label'=>'%MC', 'method'=>'actual_mc_percent(2)', 'unit' => '%'}}
 
     result = []
 

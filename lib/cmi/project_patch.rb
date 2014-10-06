@@ -93,19 +93,26 @@ module CMI
       end
 
       def total_cost
-        1000
+        (5000+rand(2000)).to_f
+        #2000.00
       end
 
       def total_income
-        5000
+        (10000+rand(5000)).to_f
+        #10000.00
       end
 
       def actual_mc
-        200
+        total_income-total_cost
       end
 
-      def actual_mc_percent
-        "38%"
+      def actual_mc_percent(decimals=nil)
+        value = (actual_mc/total_income)*100
+        if decimals.present?
+          value.round(decimals)
+        else
+          value
+        end
       end
     end
   end

@@ -82,6 +82,12 @@ en-GB:
     label_effort_plural: Efforts
     label_budgets: Budgets
     label_profitability_menu: Profitability
+    label_summary: Summary
+    label_profitability_by_totals: Totals
+    label_profitability_by_services: Profitability by Services
+    label_profitability_by_regions: Profitability by Regions
+    label_profitability_by_pm: Profitability by Project Manager
+    label_profitability_by_regions_services: Profitability by Regions and Services
     label_profitability: Profitability
     label_profitability_planned: Profitability planned
     label_profitability_target: Profitability target
@@ -166,6 +172,7 @@ en-GB:
     caption_projects: Projects
     caption_metrics: Metrics
     caption_profitability: Profitability
+    caption_summary: Summary
 
     no_project_info: "Basic info not found. It's necessary to be able to show metrics."
     no_actual_start_date: "No actual start date in basic info. Cannot make calculations."

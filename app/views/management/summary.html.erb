@@ -1,0 +1,37 @@
+<% content_for :header_tags do %>
+<%= javascript_include_tag 'http://www.google.com/jsapi' %>
+  <%= javascript_include_tag 'summary_graphs.js', :plugin => 'redmine_cmi' %>
+  <script>
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {'packages':['corechart','table']});
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(function(){
+      //draw();
+      profitability_totals('profitability_totals');
+      profitability_by_services('profitability_by_services',<%=@services_json%>);
+      profitability_by_regions('profitability_by_regions',<%=@regions_json%>);
+      profitability_by_pm('profitability_by_pm');
+      profitability_by_regions_services('profitability_by_regions_services');
+    });
+  </script>
+<% end %>
+
+<h1><%= l('cmi.label_CMI') %></h1>
+<h2><%= l('cmi.label_summary') %></h2>
+
+<h3><%= l('cmi.label_profitability_totals') %></h3>
+<div id="profitability_totals" style="width: 900px; height: 500px;"></div>
+
+<h3><%= l('cmi.label_profitability_by_services') %></h3>
+<div id="profitability_by_services_table"></div>
+<div id="profitability_by_services" style="width: 900px; height: 500px;"></div>
+
+<h3><%= l('cmi.label_profitability_by_regions') %></h3>
+<div id="profitability_by_regions_table"></div>
+<div id="profitability_by_regions" style="width: 900px; height: 500px;"></div>
+
+<h3><%= l('cmi.label_profitability_by_pm') %></h3>
+<div id="profitability_by_pm" style="width: 900px; height: 500px;"></div>
+
+<h3><%= l('cmi.label_profitability_by_regions_services') %></h3>
+<div id="profitability_by_regions_services" style="width: 900px; height: 500px;"></div>
