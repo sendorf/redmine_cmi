@@ -13,6 +13,7 @@ module CMI
 
         has_one :cmi_project_info, :dependent => :destroy
         has_many :cmi_checkpoints, :dependent => :destroy
+        has_many :profitability_days
       end
     end
 
@@ -113,6 +114,16 @@ module CMI
         else
           value
         end
+      end
+
+
+      def current_day
+        #ProfitabilityDay.find_or_create_by_project_id_and_day(self.id, Date.today)
+        profitability_day = self.profitability_days.find(:first, :conditions => ['day = ?', Date.today])
+        if profitability_day.blank?
+          profitability_day = ProfitabilityDay.create_day(self.id, year)
+        end
+        profitability_day
       end
     end
   end

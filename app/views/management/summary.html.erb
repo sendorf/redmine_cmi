@@ -10,8 +10,8 @@
       profitability_totals('profitability_totals');
       profitability_by_services('profitability_by_services',<%=@services_json%>);
       profitability_by_regions('profitability_by_regions',<%=@regions_json%>);
-      profitability_by_pm('profitability_by_pm');
-      profitability_by_regions_services('profitability_by_regions_services');
+      profitability_by_pm('profitability_by_pm',<%=@projman_json%>);
+      profitability_by_regions_services('profitability_by_regions_services',<%=@reg_serv_json%>);
     });
   </script>
 <% end %>
@@ -31,7 +31,11 @@
 <div id="profitability_by_regions" style="width: 900px; height: 500px;"></div>
 
 <h3><%= l('cmi.label_profitability_by_pm') %></h3>
+<div id="profitability_by_pm_table"></div>
 <div id="profitability_by_pm" style="width: 900px; height: 500px;"></div>
 
 <h3><%= l('cmi.label_profitability_by_regions_services') %></h3>
-<div id="profitability_by_regions_services" style="width: 900px; height: 500px;"></div>
+<h4><%= l('cmi.label_profit_by_regions_services') %></h4>
+<div id="profitability_by_regions_services_profit_table"></div>
+<h4><%= l('cmi.label_mc_by_regions_services') %></h4>
+<div id="profitability_by_regions_services_mc_table"></div>

@@ -88,6 +88,8 @@ es:
     label_profitability_by_regions: Rentabilidad por Regiones
     label_profitability_by_pm: Rentabilidad por Responsable de Proyecto
     label_profitability_by_regions_services: Rentabilidad por Regiones y Servicios
+    label_profit_by_regions_services: Ingresos por Regiones y Servicios
+    label_mc_by_regions_services: MC por Regiones y Servicios
     label_profitability: Margen de contribución
     label_profitability_planned: Prevista inicial
     label_profitability_target: Margen objetivo

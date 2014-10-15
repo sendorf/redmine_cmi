@@ -31,22 +31,19 @@ module CMI
       end
 
       def add_profitability_metrics
-        self.project.cmi_project_info.total_effort += self.cost
-        self.project.cmi_project_info.save
+        self.project.current_day.increase_data('effort_incurred',self.cost)
       end
 
       def update_profitability_metrics
         old_attributes = changed_attributes()
 
         if old_attributes['cost'].present?
-          self.project.cmi_project_info.total_effort += self.cost - old_attributes['cost']
+          self.project.current_day.increase_data('effort_incurred',(self.cost - old_attributes['cost']))
         end
-        self.project.cmi_project_info.save
       end
 
       def remove_profitability_metrics
-        self.project.cmi_project_info.total_effort -= self.cost
-        self.project.cmi_project_info.save
+        self.project.current_day.increase_data('effort_incurred',-self.cost)
       end
     end
   end

@@ -105,6 +105,130 @@ function profitability_by_regions(id,regions_mc){
 }
 
 
+function profitability_by_pm(id,projman_mc){
+  projman = ['Jefes de proyecto'];
+  mcs = ['MC'];
+  table_rows = [];
+
+  $.each(projman_mc, function(index, pm){
+    projman.push(pm[0]);
+    mcs.push(pm[2]);
+    table_rows.push([pm[0], {v: pm[1], f: format_euro(pm[1])}, {v: pm[2], f: (pm[2]*100).toFixed(2)+'%'}]);
+  });
+
+  var data = google.visualization.arrayToDataTable([projman,mcs]);
+  var dataTable = new google.visualization.DataTable();
+  dataTable.addColumn('string', 'Jefe de proyecto');
+  dataTable.addColumn('number', 'Ingresos');
+  dataTable.addColumn('number', 'MC');
+  dataTable.addRows(table_rows);
+
+  var formatter = new google.visualization.NumberFormat({
+    pattern: '#.#%'
+  });
+
+  for (i=1; i<projman.length; i++){
+    formatter.format(data,i);
+  }
+
+  var options = {
+    title: 'Margen por Jefes de proyecto',
+    hAxis: {title: 'Jefes de proyecto'},
+    vAxis: {title: 'MC', format:'#.#%', gridlines: {count: 11}, viewWindowMode:'explicit', viewWindow:{min:0}}
+  };
+
+  var table = new google.visualization.Table(document.getElementById(id+'_table'));
+  var chart = new google.visualization.ColumnChart(document.getElementById(id));
+  
+  table.draw(dataTable);
+  chart.draw(data, options);
+}
+
+
+function profitability_by_regions_services(id,reg_serv_data){
+  services = [];
+  profit_table_rows = [];
+  mc_table_rows = [];
+
+  $.each(reg_serv_data, function(reg, serv_data){
+    profit_reg_row = [reg];
+    mc_reg_row = [reg];
+    $.each(serv_data, function(serv, data){
+      if ($.inArray(serv,services)==-1){
+        services.push(serv);
+      }
+
+      profit_reg_row.push({v: data[0], f: format_euro(data[0])});
+      mc_reg_row.push({v: data[1], f: (data[1]*100).toFixed(2)+'%'});
+    });
+    profit_table_rows.push(profit_reg_row);
+    mc_table_rows.push(mc_reg_row);
+  });
+
+  var profitDataTable = new google.visualization.DataTable();
+  var mcDataTable = new google.visualization.DataTable();
+  profitDataTable.addColumn('string', 'Comunidad');
+  mcDataTable.addColumn('string', 'Comunidad');
+  $.each(services, function(i,serv){
+    profitDataTable.addColumn('number', serv);
+    mcDataTable.addColumn('number', serv);
+  });
+
+  profitDataTable.addRows(profit_table_rows);
+  mcDataTable.addRows(mc_table_rows);
+
+  var profit_table = new google.visualization.Table(document.getElementById(id+'_profit_table'));
+  var mc_table = new google.visualization.Table(document.getElementById(id+'_mc_table'));
+  
+  profit_table.draw(profitDataTable);
+  mc_table.draw(mcDataTable);  
+}
+
+
+
+
+
+function format_euro(number){
+  var numberStr = parseFloat(number).toFixed(2).toString();
+  var numFormatDec = numberStr.slice(-2); /*decimal 00*/
+  numberStr = numberStr.substring(0, numberStr.length-3); /*cut last 3 strings*/
+  var numFormat = new Array;
+  while (numberStr.length > 3) {
+    numFormat.unshift(numberStr.slice(-3));
+    numberStr = numberStr.substring(0, numberStr.length-3);
+  }
+  numFormat.unshift(numberStr);
+  return numFormat.join('.')+','+numFormatDec+' €'; /*format 000.000.000,00 */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -181,19 +305,26 @@ function profitability_by_regions2(id,regions_mc){
   chart.draw(data, options);
 }
       
+function profitability_by_regions_services2(id){
+  var data = google.visualization.arrayToDataTable([
+    ['Year', 'Sales', 'Expenses'],
+    ['2004',  1000,      400],
+    ['2005',  1170,      460],
+    ['2006',  660,       1120],
+    ['2007',  1030,      540]
+  ]);
 
+  var options = {
+    title: 'Company Performance',
+    hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
+  };
 
+  var chart = new google.visualization.ColumnChart(document.getElementById(id));
 
+  chart.draw(data, options);
+}
 
-
-
-
-
-
-
-
-
-function profitability_by_pm(id){
+function profitability_by_pm2(id){
   var data = google.visualization.arrayToDataTable([
     ['Servicios', 'BPO', 'Desarrollo', 'Mantenimiento', 'Subcontratación'],
     ['MC', 0.2456, 0.315, 0.26, 0.12]
@@ -217,41 +348,4 @@ function profitability_by_pm(id){
   var chart = new google.visualization.ColumnChart(document.getElementById(id));
 
   chart.draw(data, options);
-}
-
-function profitability_by_regions_services(id){
-  var data = google.visualization.arrayToDataTable([
-    ['Year', 'Sales', 'Expenses'],
-    ['2004',  1000,      400],
-    ['2005',  1170,      460],
-    ['2006',  660,       1120],
-    ['2007',  1030,      540]
-  ]);
-
-  var options = {
-    title: 'Company Performance',
-    hAxis: {title: 'Year', titleTextStyle: {color: 'red'}}
-  };
-
-  var chart = new google.visualization.ColumnChart(document.getElementById(id));
-
-  chart.draw(data, options);
-}
-
-
-
-
-
-
-function format_euro(number){
-  var numberStr = parseFloat(number).toFixed(2).toString();
-  var numFormatDec = numberStr.slice(-2); /*decimal 00*/
-  numberStr = numberStr.substring(0, numberStr.length-3); /*cut last 3 strings*/
-  var numFormat = new Array;
-  while (numberStr.length > 3) {
-    numFormat.unshift(numberStr.slice(-3));
-    numberStr = numberStr.substring(0, numberStr.length-3);
-  }
-  numFormat.unshift(numberStr);
-  return numFormat.join('.')+','+numFormatDec+' €'; /*format 000.000.000,00 */
 }

@@ -32,24 +32,36 @@ module CMI
           when bill_tracker_id
             paid_statuses = Setting.plugin_redmine_cmi['bill_paid_statuses']
             amount_field_id = Setting.plugin_redmine_cmi['bill_amount_custom_field']
+            incurred_data = 'income_incurred'
+            scheduled_data = 'income_scheduled'
           when provider_tracker_id
             paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses']
             amount_field_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
+            incurred_data = 'external_cost_incurred'
+            scheduled_data = 'external_cost_scheduled'
           else
             return nil
         end
 
-        if amount_field_id.present? && paid_statuses.present? && self.status_id.in?(paid_statuses.collect(&:to_i))
+        if amount_field_id.present? && paid_statuses.present?
+=begin
           case self.tracker_id.to_s
             when bill_tracker_id
-              self.project.cmi_project_info.total_income += CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
+              #self.project.cmi_project_info.total_income += CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
             when provider_tracker_id
-              self.project.cmi_project_info.total_cost += CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
+              #self.project.cmi_project_info.total_cost += CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
             else
               return nil
           end
+=end
+          #value = self.project.custom_values.where('custom_field_id',amount_field_id).value.to_f
+          value = CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
+          if self.status_id.in?(paid_statuses.collect(&:to_i))
+            self.project.current_day.increase_data(incurred_data, value)
+          end
+          self.project.current_day.increase_data(scheduled_data, value)
 
-          self.project.cmi_project_info.save
+          #self.project.cmi_project_info.save
         end
       end
 
@@ -61,9 +73,13 @@ module CMI
           when bill_tracker_id
             paid_statuses = Setting.plugin_redmine_cmi['bill_paid_statuses']
             amount_field_id = Setting.plugin_redmine_cmi['bill_amount_custom_field']
+            incurred_data = 'income_incurred'
+            scheduled_data = 'income_scheduled'
           when provider_tracker_id
             paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses']
             amount_field_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
+            incurred_data = 'external_cost_incurred'
+            scheduled_data = 'external_cost_scheduled'
           else
             return nil
         end
@@ -75,7 +91,7 @@ module CMI
           old_value = CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
           self.save_custom_field_values
           new_value = CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
-          
+=begin          
           case self.tracker_id.to_s
             when bill_tracker_id
               if old_status_id.in?(paid_statuses.collect(&:to_i))
@@ -98,6 +114,17 @@ module CMI
           end
 
           self.project.cmi_project_info.save
+=end
+          if old_status_id.in?(paid_statuses.collect(&:to_i))
+            self.project.current_day.increase_data(incurred_data, -old_value)
+          end
+
+          if self.status_id.in?(paid_statuses.collect(&:to_i))
+            self.project.current_day.increase_data(incurred_data, new_value)
+          end
+
+          self.project.current_day.increase_data(scheduled_data, -old_value)
+          self.project.current_day.increase_data(scheduled_data, new_value)
         end
       end
 
@@ -115,15 +142,26 @@ module CMI
           when bill_tracker_id
             paid_statuses = Setting.plugin_redmine_cmi['bill_paid_statuses']
             amount_field_id = Setting.plugin_redmine_cmi['bill_amount_custom_field']
+            incurred_data = 'income_incurred'
+            scheduled_data = 'income_scheduled'
           when provider_tracker_id
             paid_statuses = Setting.plugin_redmine_cmi['providers_paid_statuses']
             amount_field_id = Setting.plugin_redmine_cmi['providers_tracker_custom_field']
+            incurred_data = 'external_cost_incurred'
+            scheduled_data = 'external_cost_scheduled'
           else
             paid_statuses = nil
             amount_field_id = nil
         end
 
-        if amount_field_id.present? && paid_statuses.present? && self.status_id.in?(paid_statuses.collect(&:to_i))
+        if amount_field_id.present?&& paid_statuses.present?
+          value = CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
+          if self.status_id.in?(paid_statuses.collect(&:to_i))
+            self.project.current_day.increase_data(incurred_data, -value)
+          end
+          self.project.current_day.increase_data(scheduled_data, -value)
+
+=begin          
           case self.tracker_id.to_s
             when bill_tracker_id
               self.project.cmi_project_info.total_income -= CustomValue.find_by_custom_field_id_and_customized_id(amount_field_id, self.id).value.to_f
@@ -132,6 +170,8 @@ module CMI
           end
 
           self.project.cmi_project_info.save
+=end
+
         end
 
         # Vuelve a destruir la petición, ignorando el callback que llama al rollback y que interrumpe la eliminación
