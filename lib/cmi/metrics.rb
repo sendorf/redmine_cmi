@@ -2,7 +2,7 @@ module CMI
   class Metrics
     unloadable
 
-    attr_reader :checkpoint, :date, :project
+    attr_accessor :checkpoint, :date, :project
 
     def effort_done
       User.roles.inject(0.0) { |sum, role| sum + effort_done_by_role(role) }
@@ -21,6 +21,8 @@ module CMI
         checkpoint.scheduled_role_effort(role).to_f
       elsif (info = project.try :cmi_project_info)
         info.scheduled_role_effort(role).to_f
+      else
+        0.0
       end
     end
 

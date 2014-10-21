@@ -15,8 +15,14 @@ class CmiProjectInfo < ActiveRecord::Base
   validates_inclusion_of :guarantee, :in => (0..24), :message => :not_in_range
 
   def scheduled_role_effort(role)
-    effort = project.last_base_line.cmi_checkpoint_efforts.detect{ |effort| effort.role == role }
-    effort.nil? ? 0.0 : effort.scheduled_effort
+    base_line = project.last_base_line
+
+    if !base_line.nil?
+      effort = base_line.cmi_checkpoint_efforts.detect{ |effort| effort.role == role }
+      effort.nil? ? 0.0 : effort.scheduled_effort
+    else
+      0.0
+    end
   end
 
   def scheduled_role_effort_id(role)
