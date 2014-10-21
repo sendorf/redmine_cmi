@@ -45,10 +45,10 @@ module ManagementHelper
 
   def get_profitability_columns(selected_columns, options_for_select = false)
     columns = {'name' => {'label'=>l('label_project'), 'method'=>'name'},
-              'bpo' => {'label'=>l('cmi.label_bpo'), 'method'=>'total_bpo'},
-              'cost' => {'label'=>l('cmi.label_cost'), 'method'=>'total_cost'}, 
-              'effort' => {'label'=>l('cmi.label_effort'), 'method'=>'total_effort'}, 
-              'income' => {'label'=>l('cmi.label_income'), 'method'=>'total_income'},
+              'bpo' => {'label'=>l('cmi.label_bpo'), 'method'=>'incurred_bpo'},
+              'cost' => {'label'=>l('cmi.label_cost'), 'method'=>'incurred_external_cost'}, 
+              'effort' => {'label'=>l('cmi.label_effort'), 'method'=>'incurred_effort'}, 
+              'income' => {'label'=>l('cmi.label_income'), 'method'=>'incurred_income'},
               'mc' => {'label'=>'MC', 'method'=>'actual_mc'},
               'mc_percent' => {'label'=>'%MC', 'method'=>'actual_mc_percent(2)', 'unit' => '%'}}
 

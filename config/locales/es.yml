@@ -161,6 +161,9 @@ es:
     label_add_user_profile: Añadir nuevo perfil
     label_project_service_custom_field: Servicio
     label_project_region_custom_field: Región
+    label_project_manager_role: Perfil de Jefe de Proyecto
+    label_cross_projects: Proyectos transversales
+    label_extra_projects: Proyectos extraordinarios
 
     cmi_module_not_enabled: No está habilitado el módulo 'Métricas'
     cmi_expense_tracker_not_available: No existe el tracker gastos

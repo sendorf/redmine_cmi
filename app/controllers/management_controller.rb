@@ -49,11 +49,36 @@ class ManagementController < ApplicationController
     # Obtenemos variables auxiliares
     service_custom_field_id = Setting.plugin_redmine_cmi['project_service_custom_field'];
     region_custom_field_id = Setting.plugin_redmine_cmi['project_region_custom_field'];
-    project_manager_role_id = Setting.plugin_redmine_cpm['project_manager_role'];
+    project_manager_role_id = Setting.plugin_redmine_cmi['project_manager_role'];
+    cross_projects_id = Setting.plugin_redmine_cmi['cross_projects'] || [0]
+    extra_projects_id = Setting.plugin_redmine_cmi['extra_projects'] || [0]
 
     service_options = CustomField.find(service_custom_field_id).possible_values
     region_options = CustomField.find(region_custom_field_id).possible_values
     role_pm = Role.find_by_id(project_manager_role_id)
+
+    excluded_projects_id = cross_projects_id + extra_projects_id 
+    normal_projects = Project.where('id NOT IN (?)', excluded_projects_id)
+    cross_projects = Project.where('id IN (?)', cross_projects_id)
+    extra_projects = Project.where('id IN (?)', extra_projects_id)
+    
+    # Calculamos resumén de rentabilidad
+    @summary = {}
+    @summary['cross_income'] = ['Total ingresos horizontales', cross_projects.inject(0.0){ |sum, p| sum + p.scheduled_income}]
+    @summary['cross_expenditure'] = ['Total gastos horizontales', cross_projects.inject(0.0){ |sum, p| sum + p.scheduled_expenditure}]
+    @summary['extra_income'] = ['Total ingresos extraordinarios', extra_projects.inject(0.0){ |sum, p| sum + p.scheduled_income}]
+    @summary['extra_expenditure'] = ['Total gastos extraordinarios', extra_projects.inject(0.0){ |sum, p| sum + p.scheduled_expenditure}]
+    @summary['internal_expenditure'] = ['Total gastos internos', normal_projects.inject(0.0){ |sum, p| sum + p.scheduled_bpo + p.scheduled_effort}]
+    @summary['external_expenditure'] = ['Total gastos externos', normal_projects.inject(0.0){ |sum, p| sum + p.scheduled_external_cost}]
+    @summary['income'] = ['Total ingresos', normal_projects.inject(0.0){ |sum, p| sum + p.scheduled_income}]
+    if @summary['income'][1] != 0 
+      @summary['mc_percent'] = ['%MC', (@summary['income'][1]-(@summary['internal_expenditure'][1]+@summary['external_expenditure'][1]))/@summary['income'][1]]
+      @summary['mc'] = ['MC', @summary['mc_percent'][1]*@summary['income'][1]]
+    else
+      @summary['mc_percent'] = ['%MC',0]
+      @summary['mc'] = ['MC',0]
+    end 
+    @summary_json = JSON.generate(@summary.as_json).html_safe
 
     # Calculamos rentabilidad por regiones, por servicios y por ambas
     @reg_serv = {}
@@ -64,6 +89,7 @@ class ManagementController < ApplicationController
     region_options.each do |region|
       @reg_serv[region] = {}
       service_options.each do |service|
+        # Tomamos todos los proyectos de la región 'region' y servicio 'service'
         projects = Project.joins(
           "JOIN custom_values AS cv1 ON cv1.customized_id = projects.id AND cv1.customized_type = 'Project' 
           JOIN custom_values AS cv2 ON cv2.customized_id = projects.id AND cv2.customized_type = 'Project'").where(
@@ -71,13 +97,13 @@ class ManagementController < ApplicationController
           AND cv2.custom_field_id=? AND cv2.value=?",
           service_custom_field_id,service,region_custom_field_id,region)
 
-        total_income = projects.inject(0.0){ |sum, p| sum + p.total_income}
-        total_cost = projects.inject(0.0){ |sum, p| sum + p.total_cost}
+        scheduled_income = projects.inject(0.0){ |sum, p| sum + p.scheduled_income}
+        scheduled_expenditure = projects.inject(0.0){ |sum, p| sum + p.scheduled_expenditure}
 
         # Acumulamos rentabilidad por región y servicio
-        profit = total_income - total_cost
-        if total_income!=0
-          mc = profit/total_income
+        profit = scheduled_income - scheduled_expenditure
+        if scheduled_income!=0
+          mc = profit/scheduled_income
         else
           mc = 0
         end
@@ -85,16 +111,16 @@ class ManagementController < ApplicationController
         @reg_serv[region][service] = [profit, mc]
         # Acumulamos datos de rentabilidad por región
         if regions_aux[region].present?
-          regions_aux[region] = [regions_aux[region][0]+total_income, regions_aux[region][1]+total_cost]
+          regions_aux[region] = [regions_aux[region][0]+scheduled_income, regions_aux[region][1]+scheduled_expenditure]
         else
-          regions_aux[region] = [total_income, total_cost]
+          regions_aux[region] = [scheduled_income, scheduled_expenditure]
         end
 
         # Acumulamos datos de rentabilidad por servicio
         if services_aux[service].present?
-          services_aux[service] = [services_aux[service][0]+total_income, services_aux[service][1]+total_cost]
+          services_aux[service] = [services_aux[service][0]+scheduled_income, services_aux[service][1]+scheduled_expenditure]
         else
-          services_aux[service] = [total_income, total_cost]
+          services_aux[service] = [scheduled_income, scheduled_expenditure]
         end
       end
     end
@@ -168,8 +194,8 @@ class ManagementController < ApplicationController
     Project.all.each do |p|
       project_manager = p.users_by_role[role_pm]
       if project_manager.present?
-        total_income = p.total_income
-        total_cost = p.total_cost
+        scheduled_income = p.scheduled_income
+        scheduled_expenditure = p.scheduled_expenditure
 =begin        
         project_manager.each do |pm|
           if projman_aux[pm.id].present?
@@ -181,9 +207,9 @@ class ManagementController < ApplicationController
 =end
         key = project_manager.collect{|pm| pm.login}.sort
         if projman_aux[key].present?
-          projman_aux[key] = [key.join(", "), projman_aux[key][1]+total_income, projman_aux[key][2]+total_cost]
+          projman_aux[key] = [key.join(", "), projman_aux[key][1]+scheduled_income, projman_aux[key][2]+scheduled_expenditure]
         else
-          projman_aux[key] = [key.join(", "), total_income, total_cost]
+          projman_aux[key] = [key.join(", "), scheduled_income, scheduled_expenditure]
         end
       end
     end

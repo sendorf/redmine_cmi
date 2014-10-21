@@ -160,6 +160,9 @@ en:
     label_add_user_profile: Add new user profile
     label_project_service_custom_field: Service
     label_project_region_custom_field: Region
+    label_project_manager_role: Project Manager profile
+    label_cross_projects: Cross Projects
+    label_extra_projects: Extraordinary Projects
 
     cmi_module_not_enabled: The module 'Metrics' is not enabled
     cmi_expense_tracker_not_available: There is not 'expense' tracker available

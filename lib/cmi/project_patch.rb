@@ -83,7 +83,7 @@ module CMI
         base_line
       end
 
-      
+=begin      
       def total_bpo
         500
       end
@@ -102,21 +102,67 @@ module CMI
         (10000+rand(5000)).to_f
         #10000.00
       end
-
+=end
       def actual_mc
-        total_income-total_cost
+        #total_income-total_cost
+        scheduled_income - scheduled_expenditure
       end
 
       def actual_mc_percent(decimals=nil)
-        value = (actual_mc/total_income)*100
+        if scheduled_income != 0
+          value = (actual_mc/scheduled_income)*100
+        else
+          value = 0.0
+        end
+
         if decimals.present?
           value.round(decimals)
         else
           value
         end
       end
+##########
+      def incurred_bpo
+        # self.current_day.bpo_incurred
+        5000
+      end
 
+      def scheduled_bpo
+        10000
+      end
 
+      def incurred_external_cost
+        (5000+rand(5000)).to_f
+      end
+
+      def scheduled_external_cost
+        (10000+rand(5000)).to_f
+      end
+
+      def incurred_income
+        (20000+rand(10000)).to_f
+      end
+
+      def scheduled_income
+        (50000+rand(20000)).to_f
+      end
+
+      def incurred_effort
+        7500
+      end
+
+      def scheduled_effort
+        15000
+      end
+
+      def incurred_expenditure
+        self.incurred_bpo + self.incurred_external_cost + self.incurred_effort
+      end
+
+      def scheduled_expenditure
+        self.scheduled_bpo + self.scheduled_external_cost + self.scheduled_effort
+      end
+##########
       def current_day
         #ProfitabilityDay.find_or_create_by_project_id_and_day(self.id, Date.today)
         profitability_day = self.profitability_days.find(:first, :conditions => ['day = ?', Date.today])

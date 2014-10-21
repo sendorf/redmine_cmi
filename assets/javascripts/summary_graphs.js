@@ -3,13 +3,27 @@ function draw(){
       
 }
 
-function profitability_totals(id){
+function profitability_totals(id, summary){
+  table_rows =[];
+  $.each(summary, function(index, metric){
+    if (index == 'mc_percent'){
+      table_rows.push([metric[0], {v: metric[1], f: (metric[1]*100).toFixed(1)+'%'}]);
+    } else {
+      table_rows.push([metric[0], {v: metric[1], f: format_euro(metric[1])}]);
+    }
+  });
+
   var data = google.visualization.arrayToDataTable([
     ['Servicios', '€'],
-    ['Total Gastos Internos', 2413537],
-    ['Total Gastos Externos', 1553700],
-    ['MC', 1293344]
+    ['Total Gastos Internos', summary['internal_expenditure'][1]],
+    ['Total Gastos Externos', summary['external_expenditure'][1]],
+    ['MC', summary['mc'][1]]
   ]);
+
+  var dataTable = new google.visualization.DataTable();
+  dataTable.addColumn('string', 'Concepto');
+  dataTable.addColumn('number', 'Cantidad');
+  dataTable.addRows(table_rows);
 
   var formatter = new google.visualization.NumberFormat({
     pattern: '#€'
@@ -21,7 +35,12 @@ function profitability_totals(id){
     title: 'Gastos internos, externos y margen'
   };
 
+
+  //add_total_row(dataTable);
   var chart = new google.visualization.PieChart(document.getElementById(id));
+  var table = new google.visualization.Table(document.getElementById(id+'_table'));
+
+  table.draw(dataTable);
   chart.draw(data, options);
 }
 
@@ -349,3 +368,58 @@ function profitability_by_pm2(id){
 
   chart.draw(data, options);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+// function to add total row
+  function add_total_row(data) { // add a total row to the DataTable
+    var row_count = data.getNumberOfRows();
+    var column_count = data.getNumberOfColumns();
+    var new_row = new Array();
+
+    for (col_i = 0; col_i < column_count; col_i++) { // total each column
+      var cell_value = 0;
+      if (data.getColumnType(col_i) == 'string') { // enter 'Total' on string columns
+        new_row[col_i] = 'Total';
+      }
+      else if (data.getColumnType(col_i) == 'number') {
+        // get column pattern
+        col_pattern = data.getColumnPattern(col_i);
+
+        if (col_pattern.match('%') != null) { // percent column should not be totaled
+          new_row[col_i] = null;
+        }
+        else { // total column values
+          for (row_i = 0; row_i < row_count; row_i++) {
+            cell_value = cell_value + data.getValue(row_i, col_i);
+          }
+          // create rounded value to 2 decimals
+          cell_formatted = Math.round(cell_value*100)/100;
+
+          if (col_pattern.match(/\$/i) != null) { // add currency sign if it's in the column's pattern
+            new_row[col_i] = {v: cell_value, f: '$' + cell_formatted};
+          }
+          else { // no currency sign needed
+            new_row[col_i] = {v: cell_value, f: '' + cell_formatted};
+          }
+        }
+      }
+      else { // boolean, data, datatime, timeofday types should not be totaled
+        new_row[col_i] = null;
+      }
+    }
+  }
+*/
