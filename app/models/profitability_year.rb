@@ -9,6 +9,6 @@ class ProfitabilityYear < ActiveRecord::Base
   end
 
   def self.create_year(day_id, year)
-    ProfitabilityYear.create({:profitability_day_id => day_id, :year => year})
+    ProfitabilityYear.new({:profitability_day_id => day_id, :year => year})
   end
 end
