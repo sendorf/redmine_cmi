@@ -33,13 +33,14 @@ class CreateProfitabilityDaysAndProfitabilityYears < ActiveRecord::Migration
 
 
     #Project.all.each do |project|
-    Project.where('id IN (?)',[314,320,391]).each do |project|
+    Project.where('id > ?',399).each do |project|
       first_day = ProfitabilityDay.where(project_id: project.id).first_or_initialize
       years = {}
 
       if first_day.new_record?
         metrics = CMI::Metrics.new
         first_day[:day] = Date.today
+        first_day.save
         
         #####################
         ## RRHH
@@ -78,7 +79,7 @@ class CreateProfitabilityDaysAndProfitabilityYears < ActiveRecord::Migration
         years.each do |year,value|
           metrics.date = Date.new(year,12,31)
           years[year][:bpo_incurred] = metrics.bpo_cost_incurred
-          years[year][:bpo_scheduled] = metrics.bpo_cost_scheduled + years[year][:bpo_incurred]
+          years[year][:bpo_scheduled] = metrics.bpo_cost_scheduled #+ years[year][:bpo_incurred]
         end
 
         #####################

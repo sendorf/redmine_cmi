@@ -50,34 +50,15 @@ class ManagementController < ApplicationController
     service_custom_field_id = Setting.plugin_redmine_cmi['project_service_custom_field'];
     region_custom_field_id = Setting.plugin_redmine_cmi['project_region_custom_field'];
     project_manager_role_id = Setting.plugin_redmine_cmi['project_manager_role'];
-    cross_projects_id = Setting.plugin_redmine_cmi['cross_projects'] || [0]
-    extra_projects_id = Setting.plugin_redmine_cmi['extra_projects'] || [0]
-
+    
     service_options = CustomField.find(service_custom_field_id).possible_values
     region_options = CustomField.find(region_custom_field_id).possible_values
     role_pm = Role.find_by_id(project_manager_role_id)
 
-    excluded_projects_id = cross_projects_id + extra_projects_id 
-    normal_projects = Project.where('id NOT IN (?)', excluded_projects_id)
-    cross_projects = Project.where('id IN (?)', cross_projects_id)
-    extra_projects = Project.where('id IN (?)', extra_projects_id)
+    normal_projects = Project.get_normal_projects
     
     # Calculamos resumén de rentabilidad
-    @summary = {}
-    @summary['cross_income'] = ['Total ingresos horizontales', cross_projects.inject(0.0){ |sum, p| sum + p.scheduled_income}]
-    @summary['cross_expenditure'] = ['Total gastos horizontales', cross_projects.inject(0.0){ |sum, p| sum + p.scheduled_expenditure}]
-    @summary['extra_income'] = ['Total ingresos extraordinarios', extra_projects.inject(0.0){ |sum, p| sum + p.scheduled_income}]
-    @summary['extra_expenditure'] = ['Total gastos extraordinarios', extra_projects.inject(0.0){ |sum, p| sum + p.scheduled_expenditure}]
-    @summary['internal_expenditure'] = ['Total gastos internos', normal_projects.inject(0.0){ |sum, p| sum + p.scheduled_bpo + p.scheduled_effort}]
-    @summary['external_expenditure'] = ['Total gastos externos', normal_projects.inject(0.0){ |sum, p| sum + p.scheduled_external_cost}]
-    @summary['income'] = ['Total ingresos', normal_projects.inject(0.0){ |sum, p| sum + p.scheduled_income}]
-    if @summary['income'][1] != 0 
-      @summary['mc_percent'] = ['%MC', (@summary['income'][1]-(@summary['internal_expenditure'][1]+@summary['external_expenditure'][1]))/@summary['income'][1]]
-      @summary['mc'] = ['MC', @summary['mc_percent'][1]*@summary['income'][1]]
-    else
-      @summary['mc_percent'] = ['%MC',0]
-      @summary['mc'] = ['MC',0]
-    end 
+    @summary = Project.global_summary
     @summary_json = JSON.generate(@summary.as_json).html_safe
 
     # Calculamos rentabilidad por regiones, por servicios y por ambas
@@ -94,8 +75,10 @@ class ManagementController < ApplicationController
           "JOIN custom_values AS cv1 ON cv1.customized_id = projects.id AND cv1.customized_type = 'Project' 
           JOIN custom_values AS cv2 ON cv2.customized_id = projects.id AND cv2.customized_type = 'Project'").where(
           "cv1.custom_field_id=? AND cv1.value=? 
-          AND cv2.custom_field_id=? AND cv2.value=?",
-          service_custom_field_id,service,region_custom_field_id,region)
+          AND cv2.custom_field_id=? AND cv2.value=?
+          AND projects.id IN (?)",
+          service_custom_field_id,service,region_custom_field_id,region,normal_projects)
+
 
         scheduled_income = projects.inject(0.0){ |sum, p| sum + p.scheduled_income}
         scheduled_expenditure = projects.inject(0.0){ |sum, p| sum + p.scheduled_expenditure}
@@ -191,7 +174,9 @@ class ManagementController < ApplicationController
 
     # Calculamos rentabilidad por jefes de proyecto
     projman_aux = {}
-    Project.all.each do |p|
+    #Project.all.each do |p|
+    normal_projects.each do |p|
+      p.current_day.get_year(2014)
       project_manager = p.users_by_role[role_pm]
       if project_manager.present?
         scheduled_income = p.scheduled_income
