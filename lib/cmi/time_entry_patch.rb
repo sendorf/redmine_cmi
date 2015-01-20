@@ -23,7 +23,7 @@ module CMI
         self.role = self.user.role
         @hash_cost_actual_year = (HistoryProfilesCost.find :all).group_by(&:year)[self.tyear].group_by(&:profile)
         if attribute_present?("hours") and self.role.present?
-          self.cost = (self.hours.to_f * @hash_cost_actual_year["#{self.role}"].first.value.to_f)
+          self.cmi_cost = (self.hours.to_f * @hash_cost_actual_year["#{self.role}"].first.value.to_f)
         end
       end
     end
