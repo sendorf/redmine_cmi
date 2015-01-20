@@ -14,7 +14,7 @@ class CreateCmiProjectEfforts < ActiveRecord::Migration
 
     add_index :cmi_project_efforts, [:cmi_project_info_id, :role], :unique => true
 
-    CmiProjectEffort.reset_column_information
+    #CmiProjectEffort.reset_column_information
     CmiProjectEffort.transaction do
       begin
         CmiProjectInfo.find_each(:batch_size => 50) do |info|

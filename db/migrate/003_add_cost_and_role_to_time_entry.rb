@@ -5,7 +5,7 @@ class AddCostAndRoleToTimeEntry < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :time_entries, :cost
+    remove_column :time_entries, :cmi_cost
     remove_column :time_entries, :role
   end
 end
