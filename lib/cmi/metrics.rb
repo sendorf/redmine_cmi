@@ -97,7 +97,7 @@ module CMI
       cond = [ project.project_condition(Setting.display_subprojects_issues?) <<
                ' AND (spent_on <= ?)',
                date ]
-      TimeEntry.sum(:cost,
+      TimeEntry.sum(:cmi_cost,
                     :joins => :project,
                     :conditions => cond)
     end
