@@ -6,30 +6,30 @@ namespace :cmi do
     conf = YAML.load(conf_file)
 
     # Project custom fields
-    project_group_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["group"])
-    project_scheduled_start_date_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["scheduled_start_date"])
-    project_scheduled_finish_date_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["scheduled_finish_date"])
-    project_scheduled_qa_meetings_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["scheduled_qa_meetings"])
-    project_total_income_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["total_income"])
-    project_guarantee_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["guarantee"])
-    project_actual_start_date_field = ProjectCustomField.find_by_name(conf["project_custom_fields"]["actual_start_date"])
+    project_group_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["group"])
+    project_scheduled_start_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_start_date"])
+    project_scheduled_finish_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_finish_date"])
+    project_scheduled_qa_meetings_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_qa_meetings"])
+    project_total_income_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["total_income"])
+    project_guarantee_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["guarantee"])
+    project_actual_start_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["actual_start_date"])
     project_scheduled_role_effort_fields = User.roles.reduce({}) { |ac, role|
-      ac.merge!({ role => ProjectCustomField.find_by_name(conf["project_custom_fields"]["scheduled_role_effort"].gsub('{{role}}', role)) })
+      ac.merge!({ role => ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_role_effort"].gsub('{{role}}', role)) })
     }
 
     # Reports -> Checkpoints
     report_tracker = Tracker.find_by_name(conf["reports"]["tracker"])
-    report_held_qa_meetings_field = IssueCustomField.find_by_name(conf["reports"]["custom_fields"]["held_qa_meetings"])
-    report_scheduled_finish_date_field = IssueCustomField.find_by_name(conf["reports"]["custom_fields"]["scheduled_finish_date"])
+    report_held_qa_meetings_field = IssueCustomField.find_or_create_by_name(conf["reports"]["custom_fields"]["held_qa_meetings"])
+    report_scheduled_finish_date_field = IssueCustomField.find_or_create_by_name(conf["reports"]["custom_fields"]["scheduled_finish_date"])
     report_scheduled_role_effort_fields = User.roles.reduce({}) { |ac, role|
-      ac.merge!({ role => IssueCustomField.find_by_name(conf["reports"]["custom_fields"]["scheduled_role_effort"].gsub('{{role}}', role)) })
+      ac.merge!({ role => IssueCustomField.find_or_create_by_name(conf["reports"]["custom_fields"]["scheduled_role_effort"].gsub('{{role}}', role)) })
     }
 
     # Expenditures
     expenditure_tracker = Tracker.find_by_name(conf["expenditures"]["tracker"])
-    expenditure_initial_budget_field = IssueCustomField.find_by_name(conf["expenditures"]["custom_fields"]["initial_budget"])
-    expenditure_current_budget_field = IssueCustomField.find_by_name(conf["expenditures"]["custom_fields"]["current_budget"])
-    expenditure_incurred_field = IssueCustomField.find_by_name(conf["expenditures"]["custom_fields"]["incurred"])
+    expenditure_initial_budget_field = IssueCustomField.find_or_create_by_name(conf["expenditures"]["custom_fields"]["initial_budget"])
+    expenditure_current_budget_field = IssueCustomField.find_or_create_by_name(conf["expenditures"]["custom_fields"]["current_budget"])
+    expenditure_incurred_field = IssueCustomField.find_or_create_by_name(conf["expenditures"]["custom_fields"]["incurred"])
 
     ActiveRecord::Base.transaction do
       # Projects
