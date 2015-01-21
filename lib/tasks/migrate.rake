@@ -6,13 +6,13 @@ namespace :cmi do
     conf = YAML.load(conf_file)
 
     # Project custom fields
-    project_group_field = ProjectCustomField.find_or_create_by_name_and_field_format(conf["project_custom_fields"]["group"],:string)
-    project_scheduled_start_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_start_date"], :date)
-    project_scheduled_finish_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_finish_date"], :date)
-    project_scheduled_qa_meetings_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_qa_meetings"], :date)
-    project_total_income_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["total_income"], :float)
-    project_guarantee_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["guarantee"], :string)
-    project_actual_start_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["actual_start_date"], :date)
+    project_group_field = ProjectCustomField.find_or_create_by_name_and_field_format(conf["project_custom_fields"]["group"], "string")
+    project_scheduled_start_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_start_date"], "date")
+    project_scheduled_finish_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_finish_date"], "date")
+    project_scheduled_qa_meetings_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_qa_meetings"], "date")
+    project_total_income_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["total_income"], "float")
+    project_guarantee_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["guarantee"], "string")
+    project_actual_start_date_field = ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["actual_start_date"], "date")
     project_scheduled_role_effort_fields = User.roles.reduce({}) { |ac, role|
       ac.merge!({ role => ProjectCustomField.find_or_create_by_name(conf["project_custom_fields"]["scheduled_role_effort"].gsub('{{role}}', role)) })
     }
