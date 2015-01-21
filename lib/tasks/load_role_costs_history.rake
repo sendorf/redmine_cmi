@@ -5,6 +5,6 @@ desc 'Load CMI role costs history. (db/fixtures/history_profiles_costs.csv)'
 
 namespace :cmi do
   task :load_role_costs_history => :environment do
-    create_fixtures(File.join(File.dirname(__FILE__), %w[.. .. db fixtures]), 'history_profiles_costs')
+    ActiveRecord::Fixtures.create_fixtures(File.join(File.dirname(__FILE__), %w[.. .. db fixtures]), 'history_profiles_costs.csv')
   end
 end
