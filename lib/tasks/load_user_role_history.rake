@@ -5,7 +5,7 @@ desc 'Load CMI user role history. (db/fixtures/history_user_profiles.csv)'
 
 namespace :cmi do
   task :load_user_role_history => :environment do
-    Fixtures.create_fixtures(File.join(File.dirname(__FILE__), %w[.. .. db fixtures]), 'history_user_profiles')
+    ActiveRecord::Fixtures.create_fixtures(File.join(File.dirname(__FILE__), %w[.. .. db fixtures]), 'history_user_profiles')
 
     User.all.each do |u|
       h = HistoryUserProfile.find(:first,
