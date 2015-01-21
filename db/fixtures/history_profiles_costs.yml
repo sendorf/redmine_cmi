@@ -1,14 +1,15 @@
-1:
-  id :1
-  year: 2008
-  profile: "JP"
-  value: 30
+profiles_cost:
+  1:
+    id :1
+    year: 2008
+    profile: "JP"
+    value: 30
 
-2:
-  id: 2
-  year: 2008
-  profile: "AF"
-  value: 25
+  2:
+    id: 2
+    year: 2008
+    profile: "AF"
+    value: 25
 
 3:
   id: 3 
