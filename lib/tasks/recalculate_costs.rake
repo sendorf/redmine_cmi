@@ -9,7 +9,7 @@ namespace :cmi do
         and (finished_on is NULL or finished_on >= time_entries.spent_on))
     EOS
     ActiveRecord::Base.connection.execute <<-EOS
-      update time_entries set cost = (CAST(hours AS decimal(10,5))
+      update time_entries set cmi_cost = (CAST(hours AS decimal(10,5))
         * CAST((select value from history_profiles_costs where profile = time_entries.role
                 and year = time_entries.tyear) AS decimal(10,5)))
     EOS
