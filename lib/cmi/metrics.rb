@@ -215,7 +215,8 @@ module CMI
       if bpo_tracker_id.present? && coste_anyo_id.present?
         project.issues.each do |issue|
           if issue.tracker.id == bpo_tracker_id.to_i && issue.due_date.present? && issue.start_date.present?
-            year_cost = CustomValue.find(:first, :conditions => ['custom_field_id = ? AND customized_id = ?', coste_anyo_id, issue.id]).value.to_i
+            year_cost = CustomValue.find(:first, :conditions => ['custom_field_id = ? AND customized_id = ?', coste_anyo_id, issue.id])
+            year_cost = (year_cost ? year_cost.value.to_i : 0)
             cost += ((issue.due_date - issue.start_date + 1) / 365) * year_cost
            end  
         end
