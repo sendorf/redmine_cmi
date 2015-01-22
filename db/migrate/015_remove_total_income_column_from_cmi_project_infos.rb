@@ -4,6 +4,6 @@ class RemoveTotalIncomeColumnFromCmiProjectInfos < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :cmi_project_infos, :total_income, :precision => 12, :scale => 2, :null => false
+    add_column :cmi_project_infos, :decimal, :total_income, :precision => 12, :scale => 2, :null => false
   end
 end
