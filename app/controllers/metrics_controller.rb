@@ -38,6 +38,10 @@ class MetricsController < ApplicationController
     end
   end
 
+  def recalculate
+    redirect_to metrics_path(:action => 'show', :project_id => @project)
+  end
+
   private
 
   def get_roles

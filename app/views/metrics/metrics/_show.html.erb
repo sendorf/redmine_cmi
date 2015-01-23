@@ -2,7 +2,11 @@
 
   <%= form_for(metrics_path(:action => 'show', :project_id => @project), :method => :post) do |f| %>
       <%= hidden_field_tag :metrics, 'all' %>
-      <p class="other-formats"><%= submit_tag l('cmi.label_view_all') %></p>
+      <p class="other-formats">
+        <%= content_tag :button, l('cmi.label_recalculate_project_metrics'),
+                        :href => metrics_path(:project_id => @project, :action => 'recalculate')%>
+        <%= submit_tag l('cmi.label_view_all') %>
+      </p>
   <% end %>
 
 <div style="overflow:auto">
