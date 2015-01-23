@@ -5,7 +5,7 @@
       <p class="other-formats">
         <%= content_tag :button, l('cmi.label_recalculate_project_metrics'),
                         :href => metrics_path(:project_id => @project, :action => 'recalculate')%>
-        <%= submit_tag l('cmi.label_view_all') %>
+        <%= button_tag l('cmi.label_view_all'), :type => submit %>
       </p>
   <% end %>
 
