@@ -35,6 +35,7 @@ es:
     label_checkpoints: Puntos de control
     label_new_checkpoint: Nuevo punto de control
     label_view_all: Ver todos los puntos de control
+    label_recalculate_project_metrics: Recalcular métricas de proyecto 
     button_enlarge: Ampliar
 
     label_initial_schedule: Planificación inicial

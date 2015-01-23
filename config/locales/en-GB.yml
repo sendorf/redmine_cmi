@@ -35,6 +35,7 @@ en-GB:
     label_checkpoints: Checkpoints
     label_new_checkpoint: New checkpoint
     label_view_all: View all the checkpoints
+    label_recalculate_project_metrics: Recalculate project metrics
     button_enlarge: Enlarge
 
     label_initial_schedule: Initial schedule
