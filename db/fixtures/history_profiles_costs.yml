@@ -1,142 +1,335 @@
 1:
   id: 1
   year: 2008
-  profile: "JP"
+  profile: "Project Manager"
   value: 30
 
 2:
   id: 2
   year: 2008
-  profile: "AF"
+  profile: "Functional Analyst"
   value: 25
 
 3:
   id: 3 
   year: 2008
-  profile: "AP"
+  profile: "Analyst Developer"
   value: 20
 
 4:
   id: 4
   year: 2008
-  profile: "PS"
+  profile: "Senior Developer"
   value: 15
 
 5:
   id: 5
   year: 2008
-  profile: "PJ"
+  profile: "Junior Developer"
   value: 10
 
 6:
   id: 6
   year: 2008
-  profile: "B"
+  profile: "Scholarship"
   value: 5
 
 7:
   id: 7
-  year: 2009
-  profile: "JP"
-  value: 30
+  year: 2008
+  profile: "Observer"
+  value: 0
 
 8:
   id: 8
   year: 2009
-  profile: "AF"
-  value: 25
+  profile: "Project Manager"
+  value: 30
 
 9:
   id: 9
   year: 2009
-  profile: "AP"
-  value: 20
+  profile: "Functional Analyst"
+  value: 25
 
 10:
   id: 10
   year: 2009
-  profile: "PS"
-  value: 15
+  profile: "Analyst Developer"
+  value: 20
 
 11:
   id: 11
   year: 2009
-  profile: "PJ"
-  value: 10
+  profile: "Senior Developer"
+  value: 15
 
 12:
   id: 12
   year: 2009
-  profile: "B"
-  value: 5
+  profile: "Junior Developer"
+  value: 10
 
 13:
   id: 13
-  year: 2010
-  profile: "JP"
-  value: 30
+  year: 2009
+  profile: "Scholarship"
+  value: 5
 
 14:
   id: 14
-  year: 2010
-  profile: "AF"
-  value: 25
+  year: 2009
+  profile: "Observer"
+  value: 0
 
 15:
   id: 15
   year: 2010
-  profile: "AP"
-  value: 20
+  profile: "Project Manager"
+  value: 30
 
 16:
   id: 16
   year: 2010
-  profile: "PS"
-  value: 15
+  profile: "Functional Analyst"
+  value: 25
 
-17: 
+17:
   id: 17
   year: 2010
-  profile: "PJ"
-  value: 10
+  profile: "Analyst Developer"
+  value: 20
 
 18:
   id: 18
   year: 2010
-  profile: "B"
-  value: 5
-19:
+  profile: "Senior Developer"
+  value: 15
+
+19: 
   id: 19
-  year: 2011
-  profile: "JP"
-  value: 30
+  year: 2010
+  profile: "Junior Developer"
+  value: 10
 
 20:
   id: 20
-  year: 2011
-  profile: "AF"
-  value: 25
+  year: 2010
+  profile: "Scholarship"
+  value: 5
 
 21:
   id: 21
-  year: 2011
-  profile: "AP"
-  value: 20
+  year: 2010
+  profile: "Observer"
+  value: 0
 
 22:
   id: 22
   year: 2011
-  profile: "PS"
-  value: 15
+  profile: "Project Manager"
+  value: 30
 
-23: 
+23:
   id: 23
   year: 2011
-  profile: "PJ"
-  value: 10
+  profile: "Functional Analyst"
+  value: 25
 
 24:
   id: 24
   year: 2011
-  profile: "B"
+  profile: "Analyst Developer"
+  value: 20
+
+25:
+  id: 25
+  year: 2011
+  profile: "Senior Developer"
+  value: 15
+
+26: 
+  id: 26
+  year: 2011
+  profile: "Junior Developer"
+  value: 10
+
+27:
+  id: 27
+  year: 2011
+  profile: "Scholarship"
   value: 5
+
+28:
+  id: 28
+  year: 2011
+  profile: "Observer"
+  value: 0
+
+29:
+  id: 29
+  year: 2012
+  profile: "Project Manager"
+  value: 30
+
+30:
+  id: 30
+  year: 2012
+  profile: "Functional Analyst"
+  value: 25
+
+31:
+  id: 31 
+  year: 2012
+  profile: "Analyst Developer"
+  value: 20
+
+32:
+  id: 32
+  year: 2012
+  profile: "Senior Developer"
+  value: 15
+
+33:
+  id: 33
+  year: 2012
+  profile: "Junior Developer"
+  value: 10
+
+34:
+  id: 34
+  year: 2012
+  profile: "Scholarship"
+  value: 5
+
+35:
+  id: 35
+  year: 2012
+  profile: "Observer"
+  value: 0
+
+36:
+  id: 36
+  year: 2013
+  profile: "Project Manager"
+  value: 30
+
+37:
+  id: 37
+  year: 2013
+  profile: "Functional Analyst"
+  value: 25
+
+38:
+  id: 38 
+  year: 2013
+  profile: "Analyst Developer"
+  value: 20
+
+39:
+  id: 39
+  year: 2013
+  profile: "Senior Developer"
+  value: 15
+
+40:
+  id: 40
+  year: 2013
+  profile: "Junior Developer"
+  value: 10
+
+41:
+  id: 41
+  year: 2013
+  profile: "Scholarship"
+  value: 5
+
+42:
+  id: 42
+  year: 2013
+  profile: "Observer"
+  value: 0
+
+43:
+  id: 43
+  year: 2014
+  profile: "Project Manager"
+  value: 30
+
+44:
+  id: 44
+  year: 2014
+  profile: "Functional Analyst"
+  value: 25
+
+45:
+  id: 45 
+  year: 2014
+  profile: "Analyst Developer"
+  value: 20
+
+46:
+  id: 46
+  year: 2014
+  profile: "Senior Developer"
+  value: 15
+
+47:
+  id: 47
+  year: 2014
+  profile: "Junior Developer"
+  value: 10
+
+48:
+  id: 48
+  year: 2014
+  profile: "Scholarship"
+  value: 5
+
+49:
+  id: 49
+  year: 2014
+  profile: "Observer"
+  value: 0
+
+50:
+  id: 50
+  year: 2015
+  profile: "Project Manager"
+  value: 30
+
+51:
+  id: 51
+  year: 2015
+  profile: "Functional Analyst"
+  value: 25
+
+52:
+  id: 52 
+  year: 2015
+  profile: "Analyst Developer"
+  value: 20
+
+53:
+  id: 53
+  year: 2015
+  profile: "Senior Developer"
+  value: 15
+
+54:
+  id: 54
+  year: 2015
+  profile: "Junior Developer"
+  value: 10
+
+55:
+  id: 55
+  year: 2015
+  profile: "Scholarship"
+  value: 5
+
+56:
+  id: 56
+  year: 2015
+  profile: "Observer"
+  value: 0
