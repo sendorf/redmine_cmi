@@ -44,10 +44,9 @@ module CMI
       end
 
       def recalculate_time_entries
-        time_entries = self.time_entries
-        time_entries.each do |time_entry|
-          time_entry.update_role_and_cost
-          time_entry.save!
+        entries = self.time_entries
+        entries.each do |time_entry|
+          time_entry.recalculate_role_and_cost
         end
       end
 
