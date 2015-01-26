@@ -43,6 +43,14 @@ module CMI
                              :order => 'checkpoint_date ASC')
       end
 
+      def recalculate_time_entries
+        time_entries = self.time_entries
+        time_entries.each do |time_entry|
+          time_entry.update_role_and_cost
+          time_entry.save!
+        end
+      end
+
       def last_base_line(date=Date.today)
         base_line = cmi_checkpoints.find(:first,
                              :conditions => ['base_line = true AND checkpoint_date <= ?',date],
