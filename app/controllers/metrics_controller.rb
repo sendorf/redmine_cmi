@@ -39,8 +39,10 @@ class MetricsController < ApplicationController
   end
 
   def recalculate
-    @project.recalculate_time_entries
-    redirect_to metrics_path(:action => 'show', :project_id => @project)
+    project = @project
+    project.recalculate_time_entries
+    project.save!
+    render :show
   end
 
   private

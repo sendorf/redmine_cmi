@@ -1,13 +1,12 @@
 <% unless flash[:error] %>
 
-  <%= form_for(metrics_path(:action => 'show', :project_id => @project), :method => :post) do |f| %>
-      <%= hidden_field_tag :metrics, 'all' %>
-      <p class="other-formats">
-        <%= content_tag :button, l('cmi.label_recalculate_project_metrics'),
-                        :href => metrics_path(:project_id => @project, :action => 'recalculate')%>
-        <%= button_tag l('cmi.label_view_all'), :type => 'submit' %>
-      </p>
-  <% end %>
+
+<p class="other-formats">
+  <%= content_tag :button, l('cmi.label_recalculate_project_metrics'),
+                  :href => metrics_path(:project_id => @project, :action => 'recalculate')%>
+  <%= content_tag :button, l('cmi.label_view_all'),
+                  :href => metrics_path(:action => 'show', :project_id => @project)%>
+</p>
 
 <div style="overflow:auto">
   <div>
