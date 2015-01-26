@@ -3,9 +3,9 @@
 
 <p class="other-formats">
   <%= content_tag :button, l('cmi.label_recalculate_project_metrics'),
-                  :onclick => "window.location=#{metrics_path(:action => 'recalculate', :project_id => @project)}"%>
+                  :onclick => "window.location='#{metrics_path(:action => 'recalculate', :project_id => @project)}';"%>
   <%= content_tag :button, l('cmi.label_view_all'),
-                  :onclick => "window.location=#{metrics_path(:action => 'show', :project_id => @project)}"%>
+                  :onclick => "window.location='#{metrics_path(:action => 'show', :project_id => @project)}';"%>
 </p>
 
 <div style="overflow:auto">
