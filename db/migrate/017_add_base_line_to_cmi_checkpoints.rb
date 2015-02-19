@@ -1,7 +1,6 @@
 class AddBaseLineToCmiCheckpoints < ActiveRecord::Migration
   def self.up
     add_column :cmi_checkpoints, :base_line, :boolean, :null => false
-    drop_table :cmi_project_efforts
   end
 
   def self.down
